@@ -23,6 +23,7 @@ let calculateResults =  () => {
 
   let resultHowMuchMore = document.getElementById('howmuchmore');
   let resultHowMuch = document.getElementById('howmuch');
+  let resultMoreOrLess = document.getElementById('moreorless');
 
   // Create new Date instance
   var today = new Date()
@@ -34,11 +35,13 @@ let calculateResults =  () => {
   const dayLightYday = getDaylightDayS(yday);
 
   const diff = dayLightToday - dayLightYday;
-  const diffMin = Math.floor(diff / 60);
-  const diffSec = Math.round(diff - (diffMin * 60));
+  const diffAbs = Math.abs(diff);
+  const diffMin = Math.floor(diffAbs / 60);
+  const diffSec = Math.round(diffAbs - (diffMin * 60));
   
   resultHowMuch.textContent = new Date(dayLightToday * 1000).getHours() + "h" + new Date(dayLightToday * 1000).getMinutes() + "min";
-  resultHowMuchMore.textContent = "" + diffMin + " minutes and " + diffSec + " seconds more";
+  resultHowMuchMore.textContent = "" + diffMin + " minutes and " + diffSec + " seconds ";
+  resultMoreOrLess.textContent = diff < 0 ? "less" : "more";
   window.clearTimeout(timer);
   timer = window.setTimeout(calculateResults, 1000);
 }

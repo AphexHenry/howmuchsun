@@ -1,0 +1,39 @@
+h1 {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    margin-bottom: 5%;
+} 
+
+h2 {
+  margin: auto;
+    width: 50%;
+    text-align: center;
+    line-height: 1.7em;
+    font-size: 2em;
+    font-weight: 300;
+} 
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.timeText {
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.isMore {
+  color: #990000;
+}
+
+#inputs {
+  position: absolute;
+  bottom: 3em;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  line-height: 1.7em;
+}
