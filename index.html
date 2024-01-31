@@ -5,17 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How Much Sun?</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
+    <script src="suncalc.js"></script>
 </head>
 <body>
 
 
     <header>
-        <h1>how much sun?</h1>
+        <!-- <h1>how much sun?</h1> -->
     </header>
 
+    <div id="mainContainer">
     <main>
-        <h2>today has <div id="howmuch" class="timeText"></div> of sun: <br> <div id="howmuchmore" class="timeText"></div> <div id="moreorless" class="timeText isMore"></div> than yesterday.</h2> 
+        <h3>today's sunlight<h3>
+        <h2><div id="howmuch" class="timeText"></div></h2> <h3><div id="howmuchmore" class="timeText"></div></h3>
     </main>
+    </div>
+
+    <div id="shapes">
+        <div id="background"></div>
+        <!-- <img id="svgImg" src="resources/SVGElements.svg"/> -->
+        <div id="sunShapes">
+            <img class="sunShape" id="svgSunYellow" src="resources/sliceYellow.svg"/>
+            <img class="sunShape" id="svgSunWhite" src="resources/sliceWhite.svg"/>
+        </div>
+    </div>
 
     <div id="inputs">
       Lat: <input type="text" id="lat" value="51.5"/>
@@ -23,14 +38,22 @@
 
     </div>
 
+<!--     <iframe
+      width="600"
+      height="450"
+      style="border:0"
+      loading="lazy"
+      allowfullscreen
+      center=""
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALRL01D7voxO3OKEn2Lb5qRhOJSFNK79M
+        &q=52.536257, 13.4084662">
+    </iframe> -->
+
 
     <footer>
         <p>&copy; Copyright 2024 HowMuchSun</p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
-
-    <script src="suncalc.js"></script>
 
 </body>
 </html>

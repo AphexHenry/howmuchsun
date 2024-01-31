@@ -1,30 +1,59 @@
+@font-face {
+    font-family: AvantGarde;
+    src: url("resources/AvantGardeITCbyBT-Demi.otf") format("opentype");
+}
+
+body {
+  margin-left: 0;
+}
+
 h1 {
     margin: auto;
     width: 50%;
     text-align: center;
     margin-bottom: 5%;
-    margin-top: 15%;
+    margin-top: 5%;
     font-size: 1.7em;
 } 
 
-h2 {
-  margin: auto;
-    width: 90%;
+h2, h3 {
+    margin: auto;
     text-align: center;
     line-height: 1.7em;
-    font-size: 1.5em;
     font-weight: 300;
+    right: 1em;
+    color: #7C4E49;
+/*    margin-top:10%;*/
 } 
+
+h2 {
+  font-size: 1.5em;
+}
 
 footer {
   position: absolute;
   bottom: 0;
 }
 
+#mainContainer {
+    margin-top: 25%;
+    height: 40%;
+    position: absolute;
+    right: 0;
+    width: 40%;
+}
+
+main {
+margin:auto;
+width: 100%;
+right: 5px;
+font-family: 'AvantGarde', serif;
+}
+
 .timeText {
   display: inline-block;
   font-size: 1em;
-  font-weight: 600;
+/*  font-weight: 600;*/
 }
 
 .isMore {
@@ -38,4 +67,39 @@ footer {
   width: 50%;
   text-align: center;
   line-height: 1.7em;
+}
+
+#shapes {
+  position:absolute;
+  width: 100%;
+  top:0;
+}
+
+#sunShapes{
+    position: absolute;
+    width: 70%;
+    left: -10%;
+    margin-top: 10%;
+    z-index: -1;
+}
+
+.sunShape {
+  position:absolute;
+  width: 100%;
+  top:30%;
+}
+
+#svgSunYellow {
+    z-index: 1;
+    scale: 1;
+    transition: scale .5s ease-in-out;
+}
+
+#background {
+  position:absolute;
+  width: 100%;
+  height: 100vh;
+  background: rgb(252,215,209);
+  background: linear-gradient(180deg, rgba(252,215,209,1) 0%, rgba(251,236,231,1) 100%);
+  z-index: -2;
 }
