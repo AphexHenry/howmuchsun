@@ -26,9 +26,18 @@ h2, h3 {
 /*    margin-top:10%;*/
 } 
 
+.iconTextInfo{
+  height: 1em;
+}
+
 h2 {
   font-size: 1.5em;
 }
+
+svg {
+    color : "red";
+}
+
 
 footer {
   position: absolute;

@@ -24,6 +24,8 @@ let calculateResults =  () => {
   let resultHowMuchMore = document.getElementById('howmuchmore');
   let resultHowMuch = document.getElementById('howmuch');
   let resultMoreOrLess = document.getElementById('moreorless');
+  let resultSunrise = document.getElementById('sunrise');
+  let resultSunset = document.getElementById('sunset');
 
   // Create new Date instance
   var today = new Date()
@@ -45,8 +47,10 @@ let calculateResults =  () => {
   
   const howMuchMax = resultHowMuch.textContent = getTextDurationFromSeconds(dayLightJuneSolstice.dayLightS);
   const howMuchMin = resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDecemberSolstice.dayLightS);
-  resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDurationS);
-  resultHowMuchMore.textContent = diffMin < 0 ? "-" : "+" + diffMin + "min" + diffSec + "s";
+  resultHowMuch.textContent = "⧖" + getTextDurationFromSeconds(dayLightDurationS);
+  resultHowMuchMore.textContent = diffMin < 0 ? "-" : "+" + diffMin + "min" + diffSec + "";
+  resultSunrise.textContent = "↑" + getHourTextDromDate(dayLightToday.sunrise);
+  resultSunset.textContent = "↓" + getHourTextDromDate(dayLightToday.sunset);
 
   $('#svgSunYellow').css("scale", Math.sqrt((dayLightDurationS - dayLightDecemberSolstice.dayLightS) / dayLightJuneSolstice.dayLightS));
 
@@ -59,13 +63,23 @@ let getTextDurationFromSeconds = (aSeconds) => {
   const lH = lDate.getHours().toLocaleString('en-US', {
     minimumIntegerDigits: 2,
     useGrouping: false
-  });;
+  });
   const lMin = lDate.getMinutes().toLocaleString('en-US', {
     minimumIntegerDigits: 2,
     useGrouping: false
   });
 
   return lH + "h" + lMin + "min";
+}
+
+let getHourTextDromDate = (aDate) => {
+  return aDate.getHours().toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  }) + "h" + aDate.getMinutes().toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  });
 }
     
 let getCurrentLocation = () => {
