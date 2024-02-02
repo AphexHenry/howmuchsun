@@ -86,18 +86,69 @@ main {
   top:0;
 }
 
-#sunShapes{
+#wheel{
     position: absolute;
-    width: 70%;
-    left: -10%;
+    width: 500px;
+    height:500px;
     margin-top: 10%;
     z-index: -1;
+}
+
+#sunShapes{
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    left: 5%;
+    top: 5%;
+}
+
+#summerMarker {
+  top:0%;
+  left:50%;
+}
+
+#winterMarker {
+  top:100%;
+  left:50%;
+}
+
+#springMarker {
+  top:50%;
+  left:100%;
+}
+
+#autumnMarker {
+  top:50%;
+  left:0%;
 }
 
 .sunShape {
   position:absolute;
   width: 100%;
-  top:30%;
+}
+
+.timeMarker {
+  position:absolute;
+  height: 25px;
+  width: 25px;
+  
+  
+/*  display: inline-block;*/
+  z-index: 1;
+  left:50%;
+  margin: auto;
+}
+
+.timeMarkerShape {
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-left: -50%;
+  margin-top: -50%;
+  -webkit-box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.3);
+  box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.3);
 }
 
 #svgSunYellow {
