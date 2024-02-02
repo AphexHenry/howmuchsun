@@ -18,7 +18,7 @@
 
     <div id="mainContainer">
     <main>
-        <h2>today's sunlight<h2>
+        <h2 style="color: #fff";>today's sunlight<h2>
             <br>
         <h2><div id="howmuch" class="timeText"></div></h2> 
         <h3><div id="howmuchmore" class="timeText"></div></h3>
@@ -34,12 +34,14 @@
             <img class="sunShape" id="svgSunYellow" src="resources/sliceYellow.svg"/>
             <img class="sunShape" id="svgSunWhite" src="resources/sliceWhite.svg"/>
         </div>
+        <div id="sinusContainer">
+            <img class="sinus" id="svgSinus" src="resources/sinus.svg"/>
+        </div>
     </div>
 
-    <div id="inputs">
+    <div id="inputs" style="visibility: hidden;">
       Lat: <input type="text" id="lat" value="51.5"/>
       Lng: <input type="text" id="lng" value="-0.1"/>
-
     </div>
 
 <!--     <iframe
