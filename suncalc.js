@@ -109,6 +109,7 @@ calculateResults();
     angle = 0,
     rotation = 0,
     startAngle = 0,
+    rotationWheel = 0,
     center = {
       x: 0,
       y: 0
@@ -125,6 +126,7 @@ calculateResults();
       }
     });
     $(document).bind('mouseup', function(event) {
+      rotationWheel += rotation;
       event.preventDefault();
       stop(event);
     });
@@ -144,7 +146,7 @@ calculateResults();
     };
     x = e.clientX - center.x;
     y = e.clientY - center.y;
-    startAngle = R2D * Math.atan2(y, x);
+    startAngle = Math.atan2(y, x);
     return active = true;
   };
 
@@ -152,9 +154,38 @@ calculateResults();
     e.preventDefault();
     var x = e.clientX - center.x,
       y = e.clientY - center.y,
-      d = R2D * Math.atan2(y, x);
+      d = Math.atan2(y, x);
     rotation = d - startAngle;
-    return rot.style.webkitTransform = "rotate(" + (angle + rotation) + "deg)";
+
+let angle = Math.PI * 0 + rotation + rotationWheel;
+let css = {
+  "top": 50 * (1 + Math.sin(angle)) + "%",
+  "left":50 * (1 + Math.cos(angle)) + "%",
+};
+$("#summerMarker").css(css);
+
+angle = Math.PI * 0.5 + rotation + rotationWheel;
+css = {
+  "top": 50 * (1 + Math.sin(angle)) + "%",
+  "left":50 * (1 + Math.cos(angle)) + "%",
+};
+$("#winterMarker").css(css);
+
+angle = Math.PI * 1 + rotation + rotationWheel;
+css = {
+  "top": 50 * (1 + Math.sin(angle)) + "%",
+  "left":50 * (1 + Math.cos(angle)) + "%",
+};
+$("#springMarker").css(css);
+
+angle = Math.PI * 1.5 + rotation + rotationWheel;
+css = {
+  "top": 50 * (1 + Math.sin(angle)) + "%",
+  "left":50 * (1 + Math.cos(angle)) + "%",
+};
+$("#autumnMarker").css(css);
+
+    // return rot.style.webkitTransform = "rotate(" + (angle + rotation) + "deg)";
   };
 
   stop = function() {
