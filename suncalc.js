@@ -52,12 +52,17 @@ let calculateResults =  () => {
   
   const howMuchMax = resultHowMuch.textContent = getTextDurationFromSeconds(dayLightJuneSolstice.dayLightS);
   const howMuchMin = resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDecemberSolstice.dayLightS);
-  resultHowMuch.textContent = "⧖" + getTextDurationFromSeconds(dayLightDurationS);
+  resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDurationS);
   resultHowMuchMore.textContent = diffMin < 0 ? "-" : "+" + diffMin + "min" + diffSec + "";
   resultSunrise.textContent = "↑" + getHourTextDromDate(dayLightToday.sunrise);
   resultSunset.textContent = "↓" + getHourTextDromDate(dayLightToday.sunset);
 
-  $('#svgSunYellow').css("scale", Math.sqrt((dayLightDurationS - dayLightDecemberSolstice.dayLightS) / dayLightJuneSolstice.dayLightS));
+  const lSizeYellow = 100 * Math.sqrt((dayLightDurationS - dayLightDecemberSolstice.dayLightS) / dayLightJuneSolstice.dayLightS);
+  $('#svgSunYellow').css({
+    "width": lSizeYellow + "%", 
+    "height": lSizeYellow + "%", 
+    "left": (50 - lSizeYellow * 0.5) + "%", 
+    "top": (50 - lSizeYellow * 0.5) + "%"});
 
   window.clearTimeout(timer);
   timer = window.setTimeout(calculateResults, 1000);
@@ -74,7 +79,7 @@ let getTextDurationFromSeconds = (aSeconds) => {
     useGrouping: false
   });
 
-  return lH + "h" + lMin + "min";
+  return lH + "h and " + lMin + "min";
 }
 
 let getHourTextDromDate = (aDate) => {
