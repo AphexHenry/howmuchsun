@@ -19,6 +19,11 @@ let getDaylightDay = (aDate) => {
   return sunriseTimes;
 }
 
+let setSunSize = () => {
+  const lSize = Math.min(window.innerWidth, window.innerHeight) * 0.5;
+  $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lSize * 0.2 + "px"});
+}
+
 let calculateResults =  () => {
 
   let resultHowMuchMore = document.getElementById('howmuchmore');
@@ -98,6 +103,7 @@ let getCurrentLocation = () => {
 
 getCurrentLocation();
 calculateResults();
+setSunSize();
 
 ///////////////////////////////
 // -------  rotate  -------- //
@@ -169,14 +175,14 @@ css = {
   "top": 50 * (1 + Math.sin(angle)) + "%",
   "left":50 * (1 + Math.cos(angle)) + "%",
 };
-$("#winterMarker").css(css);
+$("#springMarker").css(css);
 
 angle = Math.PI * 1 + rotation + rotationWheel;
 css = {
   "top": 50 * (1 + Math.sin(angle)) + "%",
   "left":50 * (1 + Math.cos(angle)) + "%",
 };
-$("#springMarker").css(css);
+$("#winterMarker").css(css);
 
 angle = Math.PI * 1.5 + rotation + rotationWheel;
 css = {
