@@ -20,8 +20,8 @@ let getDaylightDay = (aDate) => {
 }
 
 let setSunSize = () => {
-  const lSize = Math.min(window.innerWidth, window.innerHeight) * 0.5;
-  $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lSize * 0.2 + "px"});
+  const lSize = Math.min(window.innerWidth, window.innerHeight) * 0.6;
+  $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lSize * 0.12 + "px"});
 }
 
 let calculateResults =  () => {

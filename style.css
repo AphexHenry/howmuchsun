@@ -144,23 +144,23 @@ main {
   scale: 1;
   transition: all .5s ease-in-out;
   background: linear-gradient(145deg, #FDC46D 0%, #F1AD28 100%);
-  box-shadow: 5em 5em 5em 0px rgba(0,0,0,0.3);
-  box-shadow: 5em 5em 5em 0px rgba(0,0,0,0.3);
-  box-shadow: 5em 5em 5em 0px rgba(0,0,0,0.3);
+  box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
+  box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
+  box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
 }
 
 #svgSunWhiteLine {
   width: 100%;
   height: 100%;
-  box-shadow: 5em 5em 5em 0px rgba(0,0,0,0.3);
-  box-shadow: 5em 5em 5em 0px rgba(0,0,0,0.3);
-  box-shadow: 5em 5em 5em 0px rgba(0,0,0,0.3);
+  box-shadow: 9em 9em 10em 0px rgba(0,0,0,0.5);
+  box-shadow: 9em 9em 10em 0px rgba(0,0,0,0.5);
+  box-shadow: 9em 9em 10em 0px rgba(0,0,0,0.5);
 }
 
 .timeMarker {
   position:absolute;
-  height: 3%;
-  width: 3%;
+  height: 2%;
+  width: 2%;
   
   
 /*  display: inline-block;*/
