@@ -11,7 +11,8 @@ lngInput.oninput = () => calculateResults();
 
 let timer;
 let observedDate = new Date();
-const solsticeDate = new Date(2023, 5, 21, 0, 0, 0, 0)
+const solsticeDate = new Date(2023, 5, 21, 0, 0, 0, 0);
+const todayDate = new Date();
 
 let getDaylightDay = (aDate) => {
   let sunriseTimes = SunCalc.getTimes(aDate, latInput.value, lngInput.value);
@@ -28,6 +29,7 @@ let setSunSize = () => {
 
 let calculateResults =  () => {
 
+  let resultTopText = document.getElementById('topTimeText');
   let resultHowMuchMore = document.getElementById('howmuchmore');
   let resultHowMuch = document.getElementById('howmuch');
   let resultMoreOrLess = document.getElementById('moreorless');
@@ -46,7 +48,6 @@ let calculateResults =  () => {
   yday.setDate(today.getDate() - 1);
   const dayLightYday = getDaylightDay(yday).dayLightS;;
 
-
   const diff = dayLightDurationS - dayLightYday;
   const diffAbs = Math.abs(diff);
   const diffMin = Math.floor(diffAbs / 60);
@@ -54,6 +55,8 @@ let calculateResults =  () => {
   
   const howMuchMax = resultHowMuch.textContent = getTextDurationFromSeconds(dayLightJuneSolstice.dayLightS);
   const howMuchMin = resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDecemberSolstice.dayLightS);
+
+  resultTopText.textContent = "sunlight " + getTextForDate(observedDate);
   resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDurationS);
   resultHowMuchMore.textContent = diffMin < 0 ? "-" : "+" + diffMin + "min" + diffSec + "";
   resultSunrise.textContent = "↑" + getHourTextDromDate(dayLightToday.sunrise);
@@ -66,8 +69,15 @@ let calculateResults =  () => {
     "left": (50 - lSizeYellow * 0.5) + "%", 
     "top": (50 - lSizeYellow * 0.5) + "%"});
 
-  window.clearTimeout(timer);
-  timer = window.setTimeout(calculateResults, 1000);
+  // window.clearTimeout(timer);
+  // timer = window.setTimeout(calculateResults, 1000);
+}
+
+let getTextForDate = () => {
+  if(observedDate.getDate() == todayDate.getDate()) {
+    return "today";
+  }
+  return observedDate.getDate() + " " + observedDate.toLocaleString('default', { month: 'short' });
 }
 
 let updateTime = () => {
@@ -158,7 +168,7 @@ setSunSize();
     
     const diffTime = solstice - now;
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
-    rotationNowMarker = -2 * Math.PI * diffDays / 365.2422;
+    rotationNowMarker = -2 * Math.PI * diffDays / 365;
     rotationWheel = -rotationNowMarker;
     applyRotation(0);
   };
@@ -216,7 +226,7 @@ setSunSize();
     $("#nowMarker").css(getCssForAngle(angle));
 
     // difference of days between the solstice and the observed date.
-    const daysGap = 365 * (rotation + rotationWheel) / (2 * Math.PI);
+    const daysGap = -365 * (rotation + rotationWheel) / (2 * Math.PI);
 
     var date = new Date(solsticeDate);
     date.setDate(solsticeDate.getDate() + daysGap);

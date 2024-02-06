@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
+    <!-- https://www.openstreetmap.org/copyright -->
     <script src="suncalc.js"></script>
 </head>
 <body>
@@ -18,7 +19,7 @@
 
     <div id="mainContainer">
     <main>
-        <h3>sunlight today:<h3>
+        <h3><div id="topTimeText"></div><h3>
         <h2><div id="howmuch" class="timeText"></div></h2> 
         <h3><div id="howmuchmore" class="timeText"></div></h3>
         <h3><div id="sunrise" class="timeText"></div></h3>
@@ -51,9 +52,6 @@
                 <div class="sunShape" id="svgSunWhiteLine"/></div>
             </div>
         </div>
-<!--         <div id="sinusContainer">
-            <img class="sinus" id="svgSinus" src="resources/sinus.svg"/>
-        </div> -->
     </div>
 
     <div id="inputs" style="visibility: hidden;">
