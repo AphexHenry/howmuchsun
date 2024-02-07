@@ -145,20 +145,68 @@ setSunSize();
     R2D = 180 / Math.PI,
     rot = document.getElementById('wheel');
 
+  $("#summerMarker").on("click", function() {
+      rotationWheel = 0;
+      applyRotation(0);
+  })
+
+  $("#winterMarker").on("click", function() {
+      rotationWheel = Math.PI;
+      applyRotation(0);
+  })
+
+  $("#autumnMarker").on("click", function() {
+      rotationWheel = Math.PI * 1.5;
+      applyRotation(0);
+  })
+
+  $("#springMarker").on("click", function() {
+      rotationWheel = Math.PI * 0.5;
+      applyRotation(0);
+  })
+
+    $("#nowMarker").on("click", function() {
+      rotationWheel = -rotationNowMarker;
+      applyRotation(0);
+  })
+
   init = function() {
     setInitRotation();
     rot.addEventListener("mousedown", start, false);
+    rot.addEventListener("touchstart", start, false);
+
     $(document).bind('mousemove', function(event) {
       if (active === true) {
         event.preventDefault();
         rotate(event);
       }
     });
+
+    $(document).bind('touchmove', function(event) {
+      if (active === true) {
+        event.preventDefault();
+        if(event.touches) {
+          event = event.touches[0];
+        }
+        rotate(event);
+      }
+    });
+
     $(document).bind('mouseup', function(event) {
       rotationWheel += rotation;
       event.preventDefault();
       stop(event);
     });
+
+    $(document).bind('touchend', function(event) {
+      rotationWheel += rotation;
+      event.preventDefault();
+      if(event.touches) {
+        event = event.touches[0];
+      }
+      stop(event);
+    });
+
   };
 
   setInitRotation = function() {
@@ -183,6 +231,9 @@ setSunSize();
 
   start = function(e) {
     e.preventDefault();
+    if(e.touches) {
+      e = e.touches[0];
+    }
     var bb = this.getBoundingClientRect(),
       t = bb.top,
       l = bb.left,
@@ -200,7 +251,6 @@ setSunSize();
   };
 
   rotate = function(e) {
-    e.preventDefault();
     var x = e.clientX - center.x,
       y = e.clientY - center.y,
       d = Math.atan2(y, x);
@@ -213,13 +263,13 @@ setSunSize();
     let angle = Math.PI * 0 + rotation + rotationWheel;
     $("#summerMarker").css(getCssForAngle(angle));
 
-    angle = Math.PI * 0.5 + rotation + rotationWheel;
+    angle = Math.PI * 1.5 + rotation + rotationWheel;
     $("#springMarker").css(getCssForAngle(angle));
 
     angle = Math.PI * 1 + rotation + rotationWheel;
     $("#winterMarker").css(getCssForAngle(angle));
 
-    angle = Math.PI * 1.5 + rotation + rotationWheel;
+    angle = Math.PI * 0.5 + rotation + rotationWheel;
     $("#autumnMarker").css(getCssForAngle(angle));
 
     angle = rotationNowMarker + rotation + rotationWheel;
