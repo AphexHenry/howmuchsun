@@ -23,8 +23,17 @@ let getDaylightDay = (aDate) => {
 }
 
 let setSunSize = () => {
-  const lSize = Math.min(window.innerWidth, window.innerHeight) * 0.6;
-  $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lSize * 0.12 + "px"});
+
+  if(window.outerWidth > window.outerHeight) {
+      const lSize = document.body.clientWidth * 0.5;
+      const lLeft = document.body.clientWidth * 0.1;
+      $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lLeft + "px"});
+  }
+  else {
+      const lSize = window.outerWidth * 1;
+      $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":-lSize * 0.5 + "px"});
+  }
+
 }
 
 let calculateResults =  () => {
@@ -95,7 +104,7 @@ let getTextDurationFromSeconds = (aSeconds) => {
     useGrouping: false
   });
 
-  return lH + "h " + lMin + "min";
+  return lH + "h" + lMin + "min";
 }
 
 let getHourTextDromDate = (aDate) => {
@@ -126,10 +135,9 @@ getCurrentLocation();
 calculateResults();
 setSunSize();
 
-///////////////////////////////
-// -------  rotate  -------- //
-///////////////////////////////
-
+/////////////////////////////////////////
+// -------  touch and clicks  -------- //
+/////////////////////////////////////////
 (function() {
   var init, rotate, start, stop,
     active = false,
@@ -230,6 +238,9 @@ setSunSize();
   }
 
   start = function(e) {
+
+    $("#svgSunYellow").removeClass("withTransition");
+
     e.preventDefault();
     if(e.touches) {
       e = e.touches[0];
@@ -286,6 +297,7 @@ setSunSize();
 
   stop = function() {
     angle += rotation;
+    $("#svgSunYellow").addClass("withTransition");
     return active = false;
   };
 

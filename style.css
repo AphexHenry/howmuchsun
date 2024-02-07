@@ -31,7 +31,7 @@ h2, h3 {
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 1.7em;
 }
 
 svg {
@@ -45,11 +45,11 @@ footer {
 }
 
 #mainContainer {
-  margin-top: 10%;
+  margin-top: 20%;
   height: 30%;
   position: fixed;
   right: 0;
-  width: 40%;
+  width: 50%;
   padding-top: 35%;
 }
 
@@ -140,14 +140,17 @@ main {
 }
 
 #svgSunYellow {
-
   z-index: 1;
   scale: 1;
-  transition: all .5s ease-out;
+  
   background: linear-gradient(145deg, #FDC46D 0%, #F1AD28 100%);
   box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
   box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
   box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
+}
+
+.withTransition {
+  transition: all .5s ease-out;
 }
 
 #centerWhite {
