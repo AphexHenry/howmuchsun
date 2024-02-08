@@ -160,10 +160,10 @@ main {
 }
 
 #svgSunWhite {
-  background: linear-gradient(317deg, #F9EFE0 0%, #FFF9EF 100%);
-    box-shadow: inset 4px 4px 0px 0px #fff;
-    box-shadow: inset 4px 4px 0px 0px #fff;
-    box-shadow: inset 4px 4px 0px 0px #fff;
+  background: linear-gradient(145deg, #FDC46D 0%, #F1AD28 100%);
+    box-shadow: inset 4px 4px 0px 0px #f0eca8;
+    box-shadow: inset 4px 4px 0px 0px #f0eca8;
+    box-shadow: inset 4px 4px 0px 0px #f0eca8;
   width: 100%;
   height: 100%;
 }
@@ -172,7 +172,7 @@ main {
   z-index: 1;
   scale: 1;
   background: rgba(39,62,84,0.82);
-  background: linear-gradient(145deg, #FDC46D 0%, #F1AD28 100%);
+  background: linear-gradient(317deg, #F9EFE0 0%, #FFF9EF 100%);
   box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
   box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
   box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
@@ -184,7 +184,7 @@ main {
 
 #centerWhite {
   z-index: 2;
-  background: linear-gradient(317deg, #F9EFE0 0%, #FFF9EF 100%);
+  background: linear-gradient(145deg, #FDC46D 0%, #F1AD28 100%);
   width: 10%;
   height: 10%;
   left:45%;

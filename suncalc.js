@@ -88,7 +88,7 @@ let calculateResults =  () => {
     "left": (50 - lSizeYellow * 0.5) + "%", 
     "top": (50 - lSizeYellow * 0.5) + "%"});
 
-  $("#background2").css("opacity", 1 - (lSizeYellow / 100));
+  $("#background2").css("opacity", (lSizeYellow / 100));
 
   // window.clearTimeout(timer);
   // timer = window.setTimeout(calculateResults, 1000);
