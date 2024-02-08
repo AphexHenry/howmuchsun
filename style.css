@@ -60,7 +60,11 @@ footer {
   bottom: 10%;
   font-weight: 200;
   font-size: 0.8em;
-  height:1.8em;;
+  height:1em;;
+}
+
+#copyright {
+  color:white;
 }
 
 #mainContainer {
@@ -265,7 +269,7 @@ main {
 /*background: url(resources/texture-white.jpeg) repeat fixed;*/
   background-color: );;
 /*background-size: 15% 15%;*/
-  background:linear-gradient(145deg, #bc9d1d88 0%, #bc9d1d88 100%), url(resources/texture-orange2.jpg);
+  background:linear-gradient(145deg, #bc9d1d88 0%, #bc9d1d88 100%), url(resources/texture-orange2.jpeg);
 
   z-index: -3;
 
