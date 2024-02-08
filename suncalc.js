@@ -23,18 +23,28 @@ let getDaylightDay = (aDate) => {
 }
 
 let setSunSize = () => {
+  let lSize;  
+  let lLeft;
+  const top = $("#wheel").last().offset().top ;
 
   if(window.outerWidth > window.outerHeight) {
-      const lSize = document.body.clientWidth * 0.5;
-      const lLeft = document.body.clientWidth * 0.1;
+      lSize = document.body.clientWidth * 0.5;
+      lLeft = document.body.clientWidth * 0.1;
       $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lLeft + "px"});
+      
   }
   else {
-      const lSize = window.outerWidth * 1;
-      $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":-lSize * 0.5 + "px"});
+      lSize = window.outerWidth * 1;
+      lLeft = -lSize * 0.5;
+      $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left": lLeft + "px"});
   }
 
+  $("#mainContainer").css({"width":(document.body.clientWidth - lSize - lLeft) + "px", "height":lSize + "px"});
+  $("#observedTimeMarker").css({"top":(top + lSize * 0.5) + "px", "left": $("#wheel").last().offset().left + lSize + "px", "width":$("main").css("margin-left")});
+
 }
+
+window.addEventListener("resize", setSunSize);
 
 let calculateResults =  () => {
 
@@ -58,16 +68,16 @@ let calculateResults =  () => {
   const dayLightYday = getDaylightDay(yday).dayLightS;;
 
   const diff = dayLightDurationS - dayLightYday;
-  const diffAbs = Math.abs(diff);
+  const diffAbs = diff;
   const diffMin = Math.floor(diffAbs / 60);
   const diffSec = Math.round(diffAbs - (diffMin * 60));
   
   const howMuchMax = resultHowMuch.textContent = getTextDurationFromSeconds(dayLightJuneSolstice.dayLightS);
   const howMuchMin = resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDecemberSolstice.dayLightS);
 
-  resultTopText.textContent = "sunlight " + getTextForDate(observedDate);
+  resultTopText.textContent = getTextForDate(observedDate);
   resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDurationS);
-  resultHowMuchMore.textContent = diffMin < 0 ? "-" : "+" + diffMin + "min" + diffSec + "";
+  resultHowMuchMore.textContent = (diffMin < 0 ? "" : "+") + diffMin + "min" + diffSec + "";
   resultSunrise.textContent = "↑" + getHourTextDromDate(dayLightToday.sunrise);
   resultSunset.textContent = "↓" + getHourTextDromDate(dayLightToday.sunset);
 
@@ -77,6 +87,8 @@ let calculateResults =  () => {
     "height": lSizeYellow + "%", 
     "left": (50 - lSizeYellow * 0.5) + "%", 
     "top": (50 - lSizeYellow * 0.5) + "%"});
+
+  $("#background2").css("opacity", 1 - (lSizeYellow / 100));
 
   // window.clearTimeout(timer);
   // timer = window.setTimeout(calculateResults, 1000);
