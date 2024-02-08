@@ -68,7 +68,7 @@ let calculateResults =  () => {
   const dayLightYday = getDaylightDay(yday).dayLightS;;
 
   const diff = dayLightDurationS - dayLightYday;
-  const diffAbs = diff;
+  const diffAbs = Math.abs(diff);
   const diffMin = Math.floor(diffAbs / 60);
   const diffSec = Math.round(diffAbs - (diffMin * 60));
   
@@ -77,7 +77,8 @@ let calculateResults =  () => {
 
   resultTopText.textContent = getTextForDate(observedDate);
   resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDurationS);
-  resultHowMuchMore.textContent = (diffMin < 0 ? "" : "+") + diffMin + "min" + diffSec + "";
+  const minDiffText = (diffMin > 0) ? diffMin + "min" : ""
+  resultHowMuchMore.textContent = (diff < 0 ? "-" : "+") + minDiffText  + diffSec + "s";
   resultSunrise.textContent = "↑" + getHourTextDromDate(dayLightToday.sunrise);
   resultSunset.textContent = "↓" + getHourTextDromDate(dayLightToday.sunset);
 
@@ -89,6 +90,8 @@ let calculateResults =  () => {
     "top": (50 - lSizeYellow * 0.5) + "%"});
 
   $("#background2").css("opacity", (lSizeYellow / 100));
+  $("#svgSunWhiteLine").css("opacity", Math.sqrt(1 - (lSizeYellow / 100)));
+  
 
   // window.clearTimeout(timer);
   // timer = window.setTimeout(calculateResults, 1000);
