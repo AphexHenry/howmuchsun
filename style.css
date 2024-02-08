@@ -51,7 +51,16 @@ footer {
 
 #topTimeText {
   margin-top: -10%;
-  margin-bottom: 10%;
+  margin-bottom: 0%;
+
+}
+
+#subTimeText {
+  margin-top: -5%;
+  bottom: 10%;
+  font-weight: 200;
+  font-size: 0.8em;
+  height:1.8em;;
 }
 
 #mainContainer {

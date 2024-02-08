@@ -49,6 +49,7 @@ window.addEventListener("resize", setSunSize);
 let calculateResults =  () => {
 
   let resultTopText = document.getElementById('topTimeText');
+  let resultSubText = document.getElementById('subTimeText');
   let resultHowMuchMore = document.getElementById('howmuchmore');
   let resultHowMuch = document.getElementById('howmuch');
   let resultMoreOrLess = document.getElementById('moreorless');
@@ -81,6 +82,7 @@ let calculateResults =  () => {
   resultHowMuchMore.textContent = (diff < 0 ? "-" : "+") + minDiffText  + diffSec + "s";
   resultSunrise.textContent = "↑" + getHourTextDromDate(dayLightToday.sunrise);
   resultSunset.textContent = "↓" + getHourTextDromDate(dayLightToday.sunset);
+resultSubText.textContent = getSubTime(observedDate);
 
   const lSizeYellow = 10 + 90 * (dayLightDurationS - dayLightDecemberSolstice.dayLightS) / (dayLightJuneSolstice.dayLightS - dayLightDecemberSolstice.dayLightS);
   $('#svgSunYellow').css({
@@ -107,6 +109,23 @@ let getTextForDate = () => {
 let updateTime = () => {
   calculateResults();
 }
+
+  getSubTime = function(aDate) {
+    if(aDate.getMonth() == 5 && (aDate.getDate() >= 19 && aDate.getDate() <= 24)) {
+      return "(summer solstice)";
+    }
+
+    if(aDate.getMonth() == 11 && (aDate.getDate() >= 19 && aDate.getDate() <= 24)) {
+      return "(winter solstice)";
+    }
+    if(aDate.getMonth() == 2 && (aDate.getDate() >= 19 && aDate.getDate() <= 22)) {
+      return "(spring equinox)";
+    }
+    if(aDate.getMonth() == 8 && (aDate.getDate() == 21 || aDate.getDate() == 22 || aDate.getDate() == 23)) {
+      return "(autumn equinox)";
+    }
+    return "";
+  }
 
 let getTextDurationFromSeconds = (aSeconds) => {
   const lDate = new Date(aSeconds * 1000);
@@ -243,6 +262,8 @@ setSunSize();
     rotationWheel = -rotationNowMarker;
     applyRotation(0);
   };
+
+
 
   getCssForAngle = function(aAngle) {
     let css = {
