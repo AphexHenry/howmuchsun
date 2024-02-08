@@ -267,10 +267,9 @@ main {
   height: 100%;
 /*  background: rgb(252,215,209);*/
 /*background: url(resources/texture-white.jpeg) repeat fixed;*/
-  background-color: );;
-/*background-size: 15% 15%;*/
+  
   background:linear-gradient(145deg, #bc9d1d88 0%, #bc9d1d88 100%), url(resources/texture-orange2.jpeg);
-
+  background-size: 35% 35%;
   z-index: -3;
 
 }
