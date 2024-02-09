@@ -205,8 +205,10 @@ setSunSize();
   var init, rotate, start, stop,
     active = false,
     startAngle = 0,
+    lastAngleRotated = 0,
     rotationWheel = 0,
     rotationNowMarker = 0;
+    isInteractingWithWheel = false;
     center = {
       x: 0,
       y: 0
@@ -214,24 +216,29 @@ setSunSize();
     R2D = 180 / Math.PI,
     rot = document.getElementById('wheel');
 
-  $("#summerMarker").on("click", function() {
-      // rotationWheel = 0;
+  $("#summerMarker").on("touchend mouseup", function() {
+      if(isInteractingWithWheel) {return;}
+      
       startAnimation(0);
   })
 
-  $("#winterMarker").on("click", function() {
+  $("#winterMarker").on("touchend mouseup", function() {
+    if(isInteractingWithWheel) {return;}
       startAnimation(Math.PI);
   })
 
-  $("#autumnMarker").on("click", function() {
+  $("#autumnMarker").on("touchend mouseup", function() {
+    if(isInteractingWithWheel) {return;}
       startAnimation(Math.PI * 1.5);
   })
 
-  $("#springMarker").on("click", function() {
+  $("#springMarker").on("touchend mouseup", function() {
+    if(isInteractingWithWheel) {return;}
       startAnimation(Math.PI * 0.5);
   })
 
-    $("#nowMarker").on("click", function() {
+  $("#nowMarker").on("click", function() {
+    if(isInteractingWithWheel) {return;}
       startAnimation(-rotationNowMarker);
   })
 
@@ -319,10 +326,12 @@ setSunSize();
   };
 
   rotate = function(e) {
+    isInteractingWithWheel = true;
     var x = e.clientX - center.x,
       y = e.clientY - center.y,
       d = Math.atan2(y, x);
     applyRotation(d - startAngle);
+    lastAngleRotated = d - startAngle;
   }
 
   applyRotation = function(aRotation) {
@@ -353,12 +362,11 @@ setSunSize();
   };
 
   stop = function(e) {
-    var x = e.clientX - center.x,
-    y = e.clientY - center.y,
-    d = Math.atan2(y, x);
-    rotationWheel += d - startAngle;
+    rotationWheel += lastAngleRotated;
     $("#svgSunYellow").addClass("withTransition");
-    return active = false;
+    active = false;
+    isInteractingWithWheel = false;
+    return ;
   };
 
   init();
