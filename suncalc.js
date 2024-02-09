@@ -98,7 +98,6 @@ let calculateResults =  () => {
     clearTimeout(timeoutSub);
     timeoutSub = setTimeout(function() {
       resultSubText.textContent = "";
-      console.log("delete text");
       timeoutSub = -1;
     }, 300);
   }
@@ -207,8 +206,11 @@ setSunSize();
     startAngle = 0,
     lastAngleRotated = 0,
     rotationWheel = 0,
-    rotationNowMarker = 0;
-    isInteractingWithWheel = false;
+    rotationNowMarker = 0,
+    isInteractingWithWheel = false,
+    lastRotateFrame = Date.now(),
+    speedWheel = 0,
+    idAnimationMomentum = -1,
     center = {
       x: 0,
       y: 0
@@ -218,7 +220,7 @@ setSunSize();
 
   $("#summerMarker").on("touchend mouseup", function() {
       if(isInteractingWithWheel) {return;}
-      
+
       startAnimation(0);
   })
 
@@ -291,8 +293,6 @@ setSunSize();
     applyRotation(0);
   };
 
-
-
   getCssForAngle = function(aAngle) {
     let css = {
       "top": 50 * (1 + Math.sin(aAngle)) + "%",
@@ -303,7 +303,8 @@ setSunSize();
 
   start = function(e) {
 
-    $("#svgSunYellow").removeClass("withTransition");
+    clearInterval(idAnimationMomentum);
+    speedWheel = 0;
 
     e.preventDefault();
     if(e.touches) {
@@ -322,16 +323,29 @@ setSunSize();
     x = e.clientX - center.x;
     y = e.clientY - center.y;
     startAngle = Math.atan2(y, x);
+    lastRotateFrame = Date.now();
     return active = true;
   };
 
   rotate = function(e) {
+    $("#svgSunYellow").removeClass("withTransition");
     isInteractingWithWheel = true;
     var x = e.clientX - center.x,
       y = e.clientY - center.y,
       d = Math.atan2(y, x);
+
+    var frameNow = Date.now();
+    const timeSinceLastRotate = Math.max((lastRotateFrame - frameNow) / 1000, 0.01);
+    lastRotateFrame = frameNow;
+
     applyRotation(d - startAngle);
-    lastAngleRotated = d - startAngle;
+    var newAngle = d - startAngle;
+    const currentSpeed = (newAngle - lastAngleRotated) / timeSinceLastRotate;
+    if(Math.abs(currentSpeed) > Math.abs(speedWheel)) {
+
+    }
+    speedWheel = speedWheel * 0.75 + 0.25 * currentSpeed;
+    lastAngleRotated = newAngle;
   }
 
   applyRotation = function(aRotation) {
@@ -366,10 +380,31 @@ setSunSize();
     $("#svgSunYellow").addClass("withTransition");
     active = false;
     isInteractingWithWheel = false;
+    startAnimationMomentum(-speedWheel);
     return ;
   };
 
   init();
+
+function startAnimationMomentum(speedInit) {
+
+  idAnimationMomentum = setInterval(frame, 20);
+  var lastFrame = Date.now();
+  
+  function frame() {
+    var newFrame = Date.now();
+    var diffFrames = (lastFrame - newFrame) / 1000; // convert in seconds.
+    lastFrame = newFrame;
+    if (Math.abs(speedInit) <= 0.01) {
+        clearInterval(idAnimationMomentum);
+      } else {
+        speedInit *= 0.95;
+        rotationWheel += speedInit * diffFrames;
+        applyRotation(0);
+      }
+    }
+
+}
 
 function startAnimation(rotationDesired) {
   const rotationInitial = normaliseAngle(rotationWheel);
