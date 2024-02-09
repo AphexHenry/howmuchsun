@@ -86,21 +86,25 @@ let calculateResults =  () => {
   const lTextSub = getSubTime(observedDate);
   const wasFull = resultSubText.textContent.length;
   
-  // clearTimeout(timeoutSub);
-  if(lTextSub.length && !wasFull) {
+  if(lTextSub.length && (!wasFull || (timeoutSub <= 0))) {
     console.log("open");
     $("#subTimeText").css({"transform": "rotateX(0deg)"});
     resultSubText.textContent = lTextSub;
+    clearTimeout(timeoutSub);
   }
-  else if(!lTextSub.length && wasFull){
+  else if(!lTextSub.length && wasFull && (timeoutSub <= 0)) {
     console.log("close");
     $("#subTimeText").css({"transform": "rotateX(90deg)"});
+    clearTimeout(timeoutSub);
     timeoutSub = setTimeout(function() {
       resultSubText.textContent = "";
-    }, 300)
+      console.log("delete text");
+      timeoutSub = -1;
+    }, 300);
   }
 
   const lSizeYellow = 10 + 90 * (dayLightDurationS - dayLightDecemberSolstice.dayLightS) / (dayLightJuneSolstice.dayLightS - dayLightDecemberSolstice.dayLightS);
+
   $('#svgSunYellow').css({
     "width": lSizeYellow + "%", 
     "height": lSizeYellow + "%", 
