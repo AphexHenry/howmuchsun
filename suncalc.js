@@ -343,10 +343,10 @@ setSunSize();
     const currentSpeed = (newAngle - lastAngleRotated) / timeSinceLastRotate;
     // prevent getting speed while removing finger.
     if(Math.abs(currentSpeed) > Math.abs(speedWheel)) {
-      speedWheel = currentSpeed;
+      speedWheel = speedWheel * 0.3 + 0.7 * currentSpeed;
     }
     else {
-      speedWheel = speedWheel * 0.75 + 0.25 * currentSpeed;
+      speedWheel = currentSpeed;
     }
     lastAngleRotated = newAngle;
   }
@@ -379,6 +379,12 @@ setSunSize();
   };
 
   stop = function(e) {
+    var frameNow = Date.now();
+    const timeSinceLastRotate = Math.max((lastRotateFrame - frameNow) / 1000, 0.01);
+    if(timeSinceLastRotate > 0.5) {
+      speedWheel = 0;
+    }
+
     rotationWheel += lastAngleRotated;
     $("#svgSunYellow").addClass("withTransition");
     active = false;
@@ -401,7 +407,7 @@ function startAnimationMomentum(speedInit) {
     if (Math.abs(speedInit) <= 0.01) {
         clearInterval(idAnimationMomentum);
       } else {
-        speedInit *= 0.95;
+        speedInit *= 0.96;
         rotationWheel += speedInit * diffFrames;
         applyRotation(0);
       }
