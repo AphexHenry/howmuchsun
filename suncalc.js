@@ -341,10 +341,13 @@ setSunSize();
     applyRotation(d - startAngle);
     var newAngle = d - startAngle;
     const currentSpeed = (newAngle - lastAngleRotated) / timeSinceLastRotate;
+    // prevent getting speed while removing finger.
     if(Math.abs(currentSpeed) > Math.abs(speedWheel)) {
-
+      speedWheel = currentSpeed;
     }
-    speedWheel = speedWheel * 0.75 + 0.25 * currentSpeed;
+    else {
+      speedWheel = speedWheel * 0.75 + 0.25 * currentSpeed;
+    }
     lastAngleRotated = newAngle;
   }
 
