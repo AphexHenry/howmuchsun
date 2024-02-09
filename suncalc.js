@@ -113,10 +113,7 @@ let calculateResults =  () => {
 
   $("#background2").css("opacity", (lSizeYellow / 100));
   $("#svgSunWhiteLine").css("opacity", Math.sqrt(1 - (lSizeYellow / 100)));
-  
 
-  // window.clearTimeout(timer);
-  // timer = window.setTimeout(calculateResults, 1000);
 }
 
 let getTextForDate = () => {
@@ -172,7 +169,6 @@ let getHourTextDromDate = (aDate) => {
 }
     
 let getCurrentLocation = () => {
-    console.log("getting location data");
    navigator.geolocation.getCurrentPosition(
     (data) => {
       console.log(data);
@@ -181,6 +177,12 @@ let getCurrentLocation = () => {
     },
     (error) => {
       console.log(error);
+      switch(error.code) {
+        case GeolocationPositionError.PERMISSION_DENIED: {
+          $("#inputs").css({"visibility":"visible"});
+          break;
+        }
+      }
     }
   )
 }

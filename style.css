@@ -107,7 +107,7 @@ main {
   position: absolute;
   bottom: 3em;
   margin: auto;
-  width: 50%;
+  width: 100%;
   text-align: center;
   line-height: 1.7em;
 }
