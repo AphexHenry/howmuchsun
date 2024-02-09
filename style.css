@@ -60,7 +60,10 @@ footer {
   bottom: 10%;
   font-weight: 200;
   font-size: 0.8em;
-  height:1em;;
+  height:2em;
+  transition-duration: .3s;
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
 }
 
 #copyright {
@@ -223,7 +226,15 @@ main {
 /*  display: inline-block;*/
   z-index: 1;
   left:50%;
+  scale: 1;
   margin: auto;
+  transition-duration: .3s;
+  transition-property: scale;
+  transition-timing-function: ease-in-out;
+}
+
+.timeMarker:hover {
+  scale: 1.3;
 }
 
 .timeMarkerShape {

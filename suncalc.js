@@ -13,6 +13,7 @@ let timer;
 let observedDate = new Date();
 const solsticeDate = new Date(2023, 5, 21, 0, 0, 0, 0);
 const todayDate = new Date();
+let timeoutSub = 0;
 
 let getDaylightDay = (aDate) => {
   let sunriseTimes = SunCalc.getTimes(aDate, latInput.value, lngInput.value);
@@ -82,7 +83,22 @@ let calculateResults =  () => {
   resultHowMuchMore.textContent = (diff < 0 ? "-" : "+") + minDiffText  + diffSec + "s";
   resultSunrise.textContent = "↑" + getHourTextDromDate(dayLightToday.sunrise);
   resultSunset.textContent = "↓" + getHourTextDromDate(dayLightToday.sunset);
-resultSubText.textContent = getSubTime(observedDate);
+  const lTextSub = getSubTime(observedDate);
+  const wasFull = resultSubText.textContent.length;
+  
+  // clearTimeout(timeoutSub);
+  if(lTextSub.length && !wasFull) {
+    console.log("open");
+    $("#subTimeText").css({"transform": "rotateX(0deg)"});
+    resultSubText.textContent = lTextSub;
+  }
+  else if(!lTextSub.length && wasFull){
+    console.log("close");
+    $("#subTimeText").css({"transform": "rotateX(90deg)"});
+    timeoutSub = setTimeout(function() {
+      resultSubText.textContent = "";
+    }, 300)
+  }
 
   const lSizeYellow = 10 + 90 * (dayLightDurationS - dayLightDecemberSolstice.dayLightS) / (dayLightJuneSolstice.dayLightS - dayLightDecemberSolstice.dayLightS);
   $('#svgSunYellow').css({
@@ -165,6 +181,13 @@ let getCurrentLocation = () => {
   )
 }
 
+/*
+* normalise an angle to the rangle [-PI, PI];
+*/ 
+let normaliseAngle = (aAngle) => {
+  return Math.atan2(Math.sin(aAngle), Math.cos(aAngle));
+}
+
 getCurrentLocation();
 calculateResults();
 setSunSize();
@@ -175,8 +198,6 @@ setSunSize();
 (function() {
   var init, rotate, start, stop,
     active = false,
-    angle = 0,
-    rotation = 0,
     startAngle = 0,
     rotationWheel = 0,
     rotationNowMarker = 0;
@@ -188,28 +209,24 @@ setSunSize();
     rot = document.getElementById('wheel');
 
   $("#summerMarker").on("click", function() {
-      rotationWheel = 0;
-      applyRotation(0);
+      // rotationWheel = 0;
+      startAnimation(0);
   })
 
   $("#winterMarker").on("click", function() {
-      rotationWheel = Math.PI;
-      applyRotation(0);
+      startAnimation(Math.PI);
   })
 
   $("#autumnMarker").on("click", function() {
-      rotationWheel = Math.PI * 1.5;
-      applyRotation(0);
+      startAnimation(Math.PI * 1.5);
   })
 
   $("#springMarker").on("click", function() {
-      rotationWheel = Math.PI * 0.5;
-      applyRotation(0);
+      startAnimation(Math.PI * 0.5);
   })
 
     $("#nowMarker").on("click", function() {
-      rotationWheel = -rotationNowMarker;
-      applyRotation(0);
+      startAnimation(-rotationNowMarker);
   })
 
   init = function() {
@@ -235,13 +252,11 @@ setSunSize();
     });
 
     $(document).bind('mouseup', function(event) {
-      rotationWheel += rotation;
       event.preventDefault();
       stop(event);
     });
 
     $(document).bind('touchend', function(event) {
-      rotationWheel += rotation;
       event.preventDefault();
       if(event.touches) {
         event = event.touches[0];
@@ -258,7 +273,7 @@ setSunSize();
     
     const diffTime = solstice - now;
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
-    rotationNowMarker = -2 * Math.PI * diffDays / 365;
+    rotationNowMarker = normaliseAngle(-2 * Math.PI * diffDays / 365);
     rotationWheel = -rotationNowMarker;
     applyRotation(0);
   };
@@ -305,25 +320,25 @@ setSunSize();
   }
 
   applyRotation = function(aRotation) {
-    rotation = aRotation;
+    // rotation = aRotation;
 
-    let angle = Math.PI * 0 + rotation + rotationWheel;
+    let angle = Math.PI * 0 + aRotation + rotationWheel;
     $("#summerMarker").css(getCssForAngle(angle));
 
-    angle = Math.PI * 1.5 + rotation + rotationWheel;
+    angle = Math.PI * 1.5 + aRotation + rotationWheel;
     $("#springMarker").css(getCssForAngle(angle));
 
-    angle = Math.PI * 1 + rotation + rotationWheel;
+    angle = Math.PI * 1 + aRotation + rotationWheel;
     $("#winterMarker").css(getCssForAngle(angle));
 
-    angle = Math.PI * 0.5 + rotation + rotationWheel;
+    angle = Math.PI * 0.5 + aRotation + rotationWheel;
     $("#autumnMarker").css(getCssForAngle(angle));
 
-    angle = rotationNowMarker + rotation + rotationWheel;
+    angle = rotationNowMarker + aRotation + rotationWheel;
     $("#nowMarker").css(getCssForAngle(angle));
 
     // difference of days between the solstice and the observed date.
-    const daysGap = -365 * (rotation + rotationWheel) / (2 * Math.PI);
+    const daysGap = -365 * (aRotation + rotationWheel) / (2 * Math.PI);
 
     var date = new Date(solsticeDate);
     date.setDate(solsticeDate.getDate() + daysGap);
@@ -331,13 +346,36 @@ setSunSize();
     updateTime();
   };
 
-  stop = function() {
-    angle += rotation;
+  stop = function(e) {
+    var x = e.clientX - center.x,
+    y = e.clientY - center.y,
+    d = Math.atan2(y, x);
+    rotationWheel += d - startAngle;
     $("#svgSunYellow").addClass("withTransition");
     return active = false;
   };
 
   init();
+
+function startAnimation(rotationDesired) {
+  const rotationInitial = normaliseAngle(rotationWheel);
+  let normalisedProgression = 0;
+  var id = setInterval(frame, 20);
+
+  function frame() {
+    if (normalisedProgression >= 1) {
+        rotationWheel = rotationDesired;
+        applyRotation(0);
+        clearInterval(id);
+      } else {
+        normalisedProgression += 0.05;
+        const smoothedProgression = (0.5 - 0.5 * Math.cos(normalisedProgression * Math.PI));
+        rotationWheel = rotationInitial + smoothedProgression * (rotationDesired - rotationInitial);
+        applyRotation(0);
+      }
+    }
+}
+
 
 }).call(this);
 
