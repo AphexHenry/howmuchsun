@@ -2,7 +2,6 @@
 // A $( document ).ready() block.
 window.onload = () => {
     
-
 let latInput = document.getElementById('lat');
 let lngInput = document.getElementById('lng');
 
@@ -211,7 +210,7 @@ setSunSize();
     lastRotateFrame = Date.now(),
     speedWheel = 0,
     idAnimationMomentum = -1,
-    timeoutSpeedId = -1,
+    timeoutSpeedIds = [],
     center = {
       x: 0,
       y: 0
@@ -347,7 +346,26 @@ setSunSize();
       currentSpeed = 0;
     }
 
-    timeoutSpeedId = setTimeout(function() {
+    let timeoutTime = 0;
+    if(Math.abs(currentSpeed) > 7) {
+      for (i in timeoutSpeedIds) {
+        clearTimeout(timeoutSpeedIds[i]);
+      }
+      timeoutSpeedIds = [];
+    }
+    else {
+      timeoutTime = 50;
+    }
+    const lThisTimeoutId = setTimeout(function() {
+
+      {const index = timeoutSpeedIds.indexOf(lThisTimeoutId);
+      if (index > -1) { // only splice array when item is found
+        timeoutSpeedIds.splice(index, 1); // 2nd parameter means remove one item only
+      }}
+
+      if(!active) {
+        return;
+      }
       // prevent getting speed while removing finger.
       if(Math.abs(currentSpeed) > Math.abs(speedWheel)) {
         var lCoeff = 0.7;//Math.min(Math.abs(speedWheel), 1);
@@ -357,7 +375,8 @@ setSunSize();
       else {
         speedWheel = currentSpeed;
       }
-    }, 50);
+    }, timeoutTime);
+    timeoutSpeedIds.push(lThisTimeoutId);
 
     lastAngleRotated = newAngle;
   }
@@ -390,9 +409,8 @@ setSunSize();
   };
 
   stop = function(e) {
-    clearTimeout(timeoutSpeedId);
     var frameNow = Date.now();
-    const timeSinceLastRotate = Math.max((lastRotateFrame - frameNow) / 1000, 0.01);
+    const timeSinceLastRotate = Math.max((frameNow - lastRotateFrame) / 1000, 0.01);
     if(timeSinceLastRotate > 0.5) {
       speedWheel = 0;
     }
