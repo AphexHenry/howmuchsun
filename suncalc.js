@@ -211,6 +211,7 @@ setSunSize();
     lastRotateFrame = Date.now(),
     speedWheel = 0,
     idAnimationMomentum = -1,
+    timeoutSpeedId = -1,
     center = {
       x: 0,
       y: 0
@@ -328,6 +329,7 @@ setSunSize();
   };
 
   rotate = function(e) {
+
     $("#svgSunYellow").removeClass("withTransition");
     isInteractingWithWheel = true;
     var x = e.clientX - center.x,
@@ -340,14 +342,23 @@ setSunSize();
 
     applyRotation(d - startAngle);
     var newAngle = d - startAngle;
-    const currentSpeed = (newAngle - lastAngleRotated) / timeSinceLastRotate;
-    // prevent getting speed while removing finger.
-    if(Math.abs(currentSpeed) > Math.abs(speedWheel)) {
-      speedWheel = speedWheel * 0.3 + 0.7 * currentSpeed;
+    let currentSpeed = (newAngle - lastAngleRotated) / timeSinceLastRotate;
+    if(Math.abs(currentSpeed) < 0.3) {
+      currentSpeed = 0;
     }
-    else {
-      speedWheel = currentSpeed;
-    }
+
+    timeoutSpeedId = setTimeout(function() {
+      // prevent getting speed while removing finger.
+      if(Math.abs(currentSpeed) > Math.abs(speedWheel)) {
+        var lCoeff = 0.7;//Math.min(Math.abs(speedWheel), 1);
+        console.log("coeff" + lCoeff);
+        speedWheel = speedWheel * lCoeff + (1 - lCoeff) * currentSpeed;
+      }
+      else {
+        speedWheel = currentSpeed;
+      }
+    }, 50);
+
     lastAngleRotated = newAngle;
   }
 
@@ -379,6 +390,7 @@ setSunSize();
   };
 
   stop = function(e) {
+    clearTimeout(timeoutSpeedId);
     var frameNow = Date.now();
     const timeSinceLastRotate = Math.max((lastRotateFrame - frameNow) / 1000, 0.01);
     if(timeSinceLastRotate > 0.5) {
