@@ -172,6 +172,7 @@ let getCurrentLocation = () => {
       console.log(data);
       latInput.value = data.coords.latitude;
       lngInput.value = data.coords.longitude;
+      calculateResults();
     },
     (error) => {
       console.log(error);
