@@ -28,7 +28,7 @@ h2, h3 {
     line-height: 1.7em;
     font-weight: 600;
     right: 1em;
-    color: #fff;
+    color: #c49e3c;
 } 
 
 .iconTextInfo{
@@ -86,7 +86,7 @@ main {
     right: 5px;
     font-family: Verdana, sans-serif;
     display: inline-block;
-    border: solid white;
+    border: solid #c49e3c;
     padding: 5%;
     border-radius: 5%;
     border-top: transparent;
@@ -138,7 +138,7 @@ main {
 
 #observedTimeMarker {
   height: 3px;
-  background-color: white;
+  background-color: #c49e3c;
   width: 5%;
   position:absolute;
   top:10px;
@@ -279,8 +279,9 @@ main {
 /*  background: rgb(252,215,209);*/
 /*background: url(resources/texture-white.jpeg) repeat fixed;*/
   
-  background:linear-gradient(145deg, #bc9d1d88 0%, #bc9d1d88 100%), url(resources/texture-orange2.jpeg);
-  background-size: 35% 35%;
+/*  background:linear-gradient(145deg, #fae4b9b1 0%, #fae4b9b1 100%), url(resources/texture-orange2.jpg);*/
+/*background-size: 35% 35%;*/
+  background: linear-gradient(145deg, #fae4b9b1 0%, #e9cb9cb1 100%);
   z-index: -3;
 
 }
