@@ -12,6 +12,7 @@ let timer;
 let observedDate = new Date();
 const solsticeDate = new Date(2023, 5, 21, 0, 0, 0, 0);
 const todayDate = new Date();
+todayDate.setFullYear(2023);
 let timeoutSub = 0;
 
 let getDaylightDay = (aDate) => {
@@ -289,7 +290,8 @@ setSunSize();
     
     const diffTime = solstice - now;
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
-    rotationNowMarker = normaliseAngle(-2 * Math.PI * diffDays / 365);
+    const brutAngle = -2 * Math.PI * diffDays / 365;
+    rotationNowMarker = brutAngle;
     rotationWheel = -rotationNowMarker;
     applyRotation(0);
   };

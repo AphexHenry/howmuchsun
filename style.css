@@ -279,9 +279,9 @@ main {
 /*  background: rgb(252,215,209);*/
 /*background: url(resources/texture-white.jpeg) repeat fixed;*/
   
-/*  background:linear-gradient(145deg, #fae4b9b1 0%, #fae4b9b1 100%), url(resources/texture-orange2.jpg);*/
+  background:linear-gradient(145deg, #fae4b9c1 0%, #e9cb9cc1 100%), url(resources/texture-orange2.jpg);
 /*background-size: 35% 35%;*/
-  background: linear-gradient(145deg, #fae4b9b1 0%, #e9cb9cb1 100%);
+/*  background: linear-gradient(145deg, #fae4b9b1 0%, #e9cb9cb1 100%);*/
   z-index: -3;
 
 }
