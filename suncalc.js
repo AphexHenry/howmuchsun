@@ -26,23 +26,25 @@ let getDaylightDay = (aDate) => {
 let setSunSize = () => {
   let lSize;  
   let lLeft;
-  const top = $("#wheel").last().offset().top ;
 
   if(window.outerWidth > window.outerHeight) {
       lSize = document.body.clientWidth * 0.5;
       lLeft = document.body.clientWidth * 0.1;
-      $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lLeft + "px"});
-      
+      $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lLeft + "px", "top":(0.5 * ($("#background").height() - lSize))   + "px"});
+      const top = $("#wheel").last().offset().top ;
+      $("#mainContainer").css({"width":(document.body.clientWidth - lSize - lLeft - 30) + "px", "height":lSize + "px", "top":top + "px"}); 
   }
-  else {
+  else { // phone
       lSize = window.outerWidth * 1;
-      lLeft = -lSize * 0.5;
-      $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left": lLeft + "px"});
+      lLeft = (window.outerWidth - lSize) * 0.5;
+      let lTop = $("#background").height() - lSize * 0.5;
+      $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left": lLeft + "px", "top":lTop + "px"});
+      const topMain = 0.5 * (window.outerHeight - $("#wheel").last().offset().top);
+      const widthMain = (document.body.clientWidth - lSize - lLeft);
+      $("#mainContainer").css({"width":widthMain + "px", "height":lSize + "px", "top":topMain + "px", "left":(window.outerWidth - widthMain) * 0.5}); 
   }
 
-  $("#mainContainer").css({"width":(document.body.clientWidth - lSize - lLeft) + "px", "height":lSize + "px"});
   $("#observedTimeMarker").css({"top":(top + lSize * 0.5) + "px", "left": $("#wheel").last().offset().left + lSize + "px", "width":$("main").css("margin-left")});
-
 }
 
 window.addEventListener("resize", setSunSize);
@@ -87,13 +89,11 @@ let calculateResults =  () => {
   const wasFull = resultSubText.textContent.length;
   
   if(lTextSub.length && (!wasFull || (timeoutSub <= 0))) {
-    console.log("open");
     $("#subTimeText").css({"transform": "rotateX(0deg)"});
     resultSubText.textContent = lTextSub;
     clearTimeout(timeoutSub);
   }
   else if(!lTextSub.length && wasFull && (timeoutSub <= 0)) {
-    console.log("close");
     $("#subTimeText").css({"transform": "rotateX(90deg)"});
     clearTimeout(timeoutSub);
     timeoutSub = setTimeout(function() {
@@ -170,10 +170,10 @@ let getHourTextDromDate = (aDate) => {
 let getCurrentLocation = () => {
    navigator.geolocation.getCurrentPosition(
     (data) => {
-      console.log(data);
       latInput.value = data.coords.latitude;
       lngInput.value = data.coords.longitude;
       calculateResults();
+      console.log(data);
     },
     (error) => {
       console.log(error);
@@ -372,7 +372,6 @@ setSunSize();
       // prevent getting speed while removing finger.
       if(Math.abs(currentSpeed) > Math.abs(speedWheel)) {
         var lCoeff = 0.7;//Math.min(Math.abs(speedWheel), 1);
-        console.log("coeff" + lCoeff);
         speedWheel = speedWheel * lCoeff + (1 - lCoeff) * currentSpeed;
       }
       else {
