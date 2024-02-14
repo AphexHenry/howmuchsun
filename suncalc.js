@@ -15,6 +15,8 @@ const todayDate = new Date();
 todayDate.setFullYear(2023);
 let timeoutSub = 0;
 
+let angleToRead = 0; // angle of the wheel for which we read current value.
+
 let getDaylightDay = (aDate) => {
   let sunriseTimes = SunCalc.getTimes(aDate, latInput.value, lngInput.value);
   let diff = sunriseTimes.sunset - sunriseTimes.sunrise;
@@ -26,6 +28,7 @@ let getDaylightDay = (aDate) => {
 let setSunSize = () => {
   let lSize;  
   let lLeft;
+  const widthMarker = 3;
 
   if(window.outerWidth > window.outerHeight) {
       lSize = document.body.clientWidth * 0.5;
@@ -33,6 +36,8 @@ let setSunSize = () => {
       $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lLeft + "px", "top":(0.5 * ($("#background").height() - lSize))   + "px"});
       const top = $("#wheel").last().offset().top ;
       $("#mainContainer").css({"width":(document.body.clientWidth - lSize - lLeft - 30) + "px", "height":lSize + "px", "top":top + "px"}); 
+      $("#observedTimeMarker").css({"top":(top + lSize * 0.5) + "px", "left": $("#wheel").last().offset().left + lSize + "px", "width":$("main").css("margin-left")});
+      angleToRead = 0;
   }
   else { // phone
       lSize = window.outerWidth * 1;
@@ -42,9 +47,10 @@ let setSunSize = () => {
       const topMain = 0.5 * (window.outerHeight - $("#wheel").last().offset().top);
       const widthMain = (document.body.clientWidth - lSize - lLeft);
       $("#mainContainer").css({"width":widthMain + "px", "height":lSize + "px", "top":topMain + "px", "left":(window.outerWidth - widthMain) * 0.5}); 
+      const bottomMain = $("main").last().offset().top + $("main").outerHeight(false);
+      $("#observedTimeMarker").css({"width":widthMarker + "px", "top":(bottomMain) + "px", "left": 0.5 * (window.outerWidth - widthMarker) + "px", "height":($('#wheel').last().offset().top - bottomMain) + "px"});
+      angleToRead = -Math.PI * 0.5;
   }
-
-  $("#observedTimeMarker").css({"top":(top + lSize * 0.5) + "px", "left": $("#wheel").last().offset().left + lSize + "px", "width":$("main").css("margin-left")});
 }
 
 window.addEventListener("resize", setSunSize);
@@ -385,21 +391,16 @@ setSunSize();
 
   applyRotation = function(aRotation) {
     // rotation = aRotation;
-
-    let angle = Math.PI * 0 + aRotation + rotationWheel;
+    let angle = aRotation + rotationWheel + angleToRead;
     $("#summerMarker").css(getCssForAngle(angle));
 
-    angle = Math.PI * 1.5 + aRotation + rotationWheel;
-    $("#springMarker").css(getCssForAngle(angle));
+    $("#springMarker").css(getCssForAngle(angle + Math.PI * 1.5));
 
-    angle = Math.PI * 1 + aRotation + rotationWheel;
-    $("#winterMarker").css(getCssForAngle(angle));
+    $("#winterMarker").css(getCssForAngle(angle + Math.PI * 1));
 
-    angle = Math.PI * 0.5 + aRotation + rotationWheel;
-    $("#autumnMarker").css(getCssForAngle(angle));
+    $("#autumnMarker").css(getCssForAngle(angle + Math.PI * 0.5));
 
-    angle = rotationNowMarker + aRotation + rotationWheel;
-    $("#nowMarker").css(getCssForAngle(angle));
+    $("#nowMarker").css(getCssForAngle(angle + rotationNowMarker));
 
     // difference of days between the solstice and the observed date.
     const daysGap = -365 * (aRotation + rotationWheel) / (2 * Math.PI);
