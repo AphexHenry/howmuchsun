@@ -42,14 +42,14 @@ let setSunSize = () => {
   else { // phone
       lSize = window.outerWidth * 1;
       lLeft = (window.outerWidth - lSize) * 0.5;
-      let lTop = $("#background").height() - lSize * 0.5;
+      let lTop = - lSize * 0.5;
       $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left": lLeft + "px", "top":lTop + "px"});
-      const topMain = 0.5 * (window.outerHeight - $("#wheel").last().offset().top);
+      const topMain = 0.55 * lSize;
       const widthMain = (document.body.clientWidth - lSize - lLeft);
-      $("#mainContainer").css({"width":widthMain + "px", "height":lSize + "px", "top":topMain + "px", "left":(window.outerWidth - widthMain) * 0.5}); 
+      $("#mainContainer").css({"height":lSize + "px", "top":topMain + "px", "left":(window.outerWidth - widthMain) * 0}); 
       const bottomMain = $("main").last().offset().top + $("main").outerHeight(false);
       $("#observedTimeMarker").css({"width":widthMarker + "px", "top":(bottomMain) + "px", "left": 0.5 * (window.outerWidth - widthMarker) + "px", "height":($('#wheel').last().offset().top - bottomMain) + "px"});
-      angleToRead = -Math.PI * 0.5;
+      angleToRead = Math.PI * 0.5;
   }
 }
 
@@ -62,8 +62,11 @@ let calculateResults =  () => {
   let resultHowMuchMore = document.getElementById('howmuchmore');
   let resultHowMuch = document.getElementById('howmuch');
   let resultMoreOrLess = document.getElementById('moreorless');
+  let resultMinSun = document.getElementById('minsun');
+  let resultMaxSun = document.getElementById('maxsun');
   let resultSunrise = document.getElementById('sunrise');
   let resultSunset = document.getElementById('sunset');
+  let resultthanyesterday = document.getElementById("thanyesterday");
 
   // Create new Date instance
   var today = new Date(observedDate);
@@ -80,17 +83,33 @@ let calculateResults =  () => {
   const diff = dayLightDurationS - dayLightYday;
   const diffAbs = Math.abs(diff);
   const diffMin = Math.floor(diffAbs / 60);
-  const diffSec = Math.round(diffAbs - (diffMin * 60));
-  
-  const howMuchMax = resultHowMuch.textContent = getTextDurationFromSeconds(dayLightJuneSolstice.dayLightS);
-  const howMuchMin = resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDecemberSolstice.dayLightS);
+  let diffSec = Math.round(diffAbs - (diffMin * 60));
+  if(diffSec < 10) {
+    diffSec = "0" + diffSec;
+  }
+
+  // resultHowMuch.textContent = getTextDurationFromSeconds(dayLightJuneSolstice.dayLightS);
+  // resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDecemberSolstice.dayLightS);
 
   resultTopText.textContent = getTextForDate(observedDate);
   resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDurationS);
+  $("#durationLevel").html(getTextDurationFromSeconds(dayLightDurationS));
   const minDiffText = (diffMin > 0) ? diffMin + "min" : ""
-  resultHowMuchMore.textContent = (diff < 0 ? "-" : "+") + minDiffText  + diffSec + "s";
-  resultSunrise.textContent = "↑" + getHourTextDromDate(dayLightToday.sunrise);
-  resultSunset.textContent = "↓" + getHourTextDromDate(dayLightToday.sunset);
+  resultMoreOrLess.textContent = diff < 0 ? " less" : " more";
+  if(diff > 0) {
+    $(resultMoreOrLess).addClass("isMore");
+  }
+  resultHowMuchMore.textContent = minDiffText  + diffSec + "s";
+
+  resultSunrise.textContent = getHourTextDromDate(dayLightToday.sunrise);
+  resultSunset.textContent = getHourTextDromDate(dayLightToday.sunset);
+
+  resultthanyesterday.textContent = (observedDate.getDate() == todayDate.getDate()) ? "each day" : "each day"
+
+  resultMinSun.textContent = getTextDurationFromSeconds(dayLightDecemberSolstice.dayLightS);
+  resultMaxSun.textContent = getTextDurationFromSeconds(dayLightJuneSolstice.dayLightS);
+
+
   const lTextSub = getSubTime(observedDate);
   const wasFull = resultSubText.textContent.length;
   
@@ -108,7 +127,10 @@ let calculateResults =  () => {
     }, 300);
   }
 
-  const lSizeYellow = 10 + 90 * (dayLightDurationS - dayLightDecemberSolstice.dayLightS) / (dayLightJuneSolstice.dayLightS - dayLightDecemberSolstice.dayLightS);
+  const ratioSunMinMax = (dayLightDurationS - dayLightDecemberSolstice.dayLightS) / (dayLightJuneSolstice.dayLightS - dayLightDecemberSolstice.dayLightS);;
+  const lSizeYellow = 10 + 90 * ratioSunMinMax;
+  const valueCss = "linear-gradient(80deg, white 0%, white " + (Math.round(ratioSunMinMax * 100) - 1 )+ "%, #FDC46D " + Math.round(ratioSunMinMax * 100) + "%, #FDC46D 100%)";
+  $("#levelSun").css("background",valueCss);
 
   $('#svgSunYellow').css({
     "width": lSizeYellow + "%", 

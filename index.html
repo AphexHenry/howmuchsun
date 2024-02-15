@@ -18,13 +18,42 @@
 
     <div id="mainContainer">
     <main>
-        <h3 id="sunlightText">SUNLIGHT</h3>
-        <h3><div id="topTimeText"></div></h3>
+        <!-- <h3 id="sunlightText">SUNLIGHT</h3> -->
+        <h2><div class="timeText" id="topTimeText"></div></h2>
         <h3><div id="subTimeText">(solstice)</div><h3>
-        <h2><div id="howmuch" class="timeText"></div></h2> 
-        <h3><div id="howmuchmore" class="timeText"></div></h3>
-        <h3><div id="sunrise" class="timeText"></div></h3>
-        <h3><div id="sunset" class="timeText"></div></h3>
+            <h3><div class="timeText"> has </div>
+            <div id="howmuch" class="timeText fat"></div>
+            <div class="timeText"> of sunlight </div>
+    </h3>
+        <h3>
+            <div id="howmuchmore" class="timeText"></div>
+            <div id="moreorless" class="timeText"></div>
+            <div class="timeText" id="thanyesterday">than yesterday</div>
+            <br>
+            <br>
+        </h3>
+
+            <h3><img class="icon" src="resources/sunrise.svg"></img><div id="sunrise" class="timeText"></div>
+                <img class="icon" src="resources/sunset.svg"></img><div id="sunset" class="timeText"></div>
+            </h3>
+
+
+            <div id="levelSunContainer">
+                <!-- <h4 id="titleLevel">daily sunlight</h4> -->
+                <h4 id="durationLevel" style="width:100%; text-align: center; margin-left:0%; color:#c49e3c"; display:"inline-block"><br>than winter</h4>
+                <div id="levelSun">   
+                    <div style="position:absolute; left:0;">
+                        <h4 id="minsun">min sun</h4>
+                        <h4 style="margin-left: 0%; line-height: 0em;">(winter solstice)</h4>
+                    </div>
+                    <div style="position:absolute; right:0;">
+                        <h4 id="maxsun">max sun</h4>
+                        <h4 style="line-height: 0em;">(summer solstice)</h4>
+                    </div>
+                </div>
+
+            </div>
+
     </main>
     </div>
 

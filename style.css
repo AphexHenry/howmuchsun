@@ -9,8 +9,13 @@ body {
 
 #sunlightText {
   margin-top: -20%;
-  margin-bottom: 20%;
+  margin-bottom: 10%;
   font-family: monospace;
+}
+
+.icon {
+  height:1.2em;
+  filter: invert(65%) sepia(65%) saturate(385%) hue-rotate(5deg) brightness(84%) contrast(98%);
 }
 
 h1 {
@@ -19,30 +24,34 @@ h1 {
     text-align: center;
     margin-bottom: 5%;
     margin-top: 5%;
-    font-size: 1.7em;
+    font-size: 1.2em;
 } 
 
 h2, h3 {
     margin: auto;
     text-align: center;
     line-height: 1.7em;
-    font-weight: 600;
-    right: 1em;
-    color: #c49e3c;
+    font-weight: 300;
+    right: 0.8px;
+    color: #aa0000;;
 } 
+
+h2 {
+  font-size: 1.1em;
+}
+
 
 .iconTextInfo{
   height: 1em;
-}
-
-h2 {
-  font-size: 1.7em;
 }
 
 svg {
     color : "red";
 }
 
+.fat {
+  font-weight: bold;
+}
 
 footer {
   position: absolute;
@@ -50,9 +59,11 @@ footer {
 }
 
 #topTimeText {
-  margin-top: -10%;
+  margin-top: -40%;
   margin-bottom: 0%;
-
+  font-family: monospace;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 #subTimeText {
@@ -79,6 +90,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center; 
+  width: 100%;
 }
 
 main {
@@ -86,7 +98,7 @@ main {
     right: 5px;
     font-family: Verdana, sans-serif;
     display: inline-block;
-    border: solid #c49e3c;
+/*    border: solid #c49e3c;*/
     padding: 5%;
     border-radius: 5%;
     border-top: transparent;
@@ -100,7 +112,12 @@ main {
 }
 
 .isMore {
-  color: #aa0000;
+  color: #c49e3c;
+}
+
+#moreorless {
+font-family: cursive;
+font-size: 1.3em;
 }
 
 #inputs {
@@ -117,6 +134,7 @@ main {
   width: 100%;
   height:100%;
   top:0;
+  overflow: hidden;
 }
 
 #wheel{
@@ -281,7 +299,7 @@ main {
 /*  background: rgb(252,215,209);*/
 /*background: url(resources/texture-white.jpeg) repeat fixed;*/
   
-  background:linear-gradient(145deg, #fae4b9c1 0%, #e9cb9cc1 100%), url(resources/texture-orange2.jpg);
+  background:linear-gradient(145deg, #f8f5e0e0 0%, #ffe4bad1 100%), url(resources/texture-orange2.jpg);
 /*background-size: 35% 35%;*/
 /*  background: linear-gradient(145deg, #fae4b9b1 0%, #e9cb9cb1 100%);*/
   z-index: -3;
@@ -296,7 +314,7 @@ main {
 /*background: url(resources/texture-white.jpeg) repeat fixed;*/
 /*background-color: #FAFECCAA;*/
 /*background-size: 15% 15%;*/
-  background: radial-gradient(circle at 27%, #ffffff88 0%, transparent 50%);
+  background: radial-gradient(circle at 20% 70%, #ffffff88 0%, transparent 50%);
   z-index: -2;
 }
 
@@ -310,4 +328,50 @@ main {
 
 #svgSinus {
   width:400%;
+}
+
+#titleLevel {
+  text-align: center;
+  color: #c49e3c;
+  font-family: cursive;
+  font-size: 1.3em;
+}
+
+#levelSunContainer {
+  margin-top: 20%;
+}
+
+h4 {
+  color: #aa0000;
+  font-weight: normal;
+}
+
+
+#levelSun {
+  width: 100%;
+  height: 0.7em;
+  background: linear-gradient(80deg, white 0%, white 59%, #FDC46D 60%, #FDC46D 100%);
+  border-radius: 0.3em;
+  box-shadow: 0.5em 0.5em 0.5em 0px rgba(0,0,0,0.3);
+}
+
+#minsun {
+/*  display: inline-block;*/
+  width: 50%;
+/*  margin-left: -20%;*/
+  line-height: 0em;
+  text-align: center;
+  width: 100%;
+  margin-top: 2em;
+}
+
+#maxsun {
+/*  display: inline-block;*/
+  text-align: right;
+  width: 50%;
+  line-height: 0em;
+  text-align: center;
+  width: 100%;
+  line-height: 0em;
+  margin-top: 2em;
 }
