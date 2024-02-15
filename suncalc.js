@@ -144,10 +144,13 @@ let calculateResults =  () => {
 }
 
 let getTextForDate = () => {
-  if(observedDate.getDate() == todayDate.getDate()) {
+  if((observedDate.getDate() == todayDate.getDate()) && (observedDate.getMonth() == todayDate.getMonth())) {
     return "today";
   }
-  return observedDate.getDate() + " " + observedDate.toLocaleString('default', { month: 'short' });
+  return observedDate.getDate().toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  }) + " " + observedDate.toLocaleString('default', { month: 'short' });
 }
 
 let updateTime = () => {
