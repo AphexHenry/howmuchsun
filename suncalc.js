@@ -427,6 +427,8 @@ setSunSize();
 
     $("#nowMarker").css(getCssForAngle(angle + rotationNowMarker));
 
+    $("#observedMarker").css(getCssForAngle(angleToRead));
+
     // difference of days between the solstice and the observed date.
     const daysGap = -365 * (aRotation + rotationWheel) / (2 * Math.PI);
 

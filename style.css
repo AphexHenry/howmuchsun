@@ -273,6 +273,15 @@ font-size: 1.3em;
   border-color: #fff;
 }
 
+#observedMarker .timeMarkerShape {
+  background: rgba(255,255,255,1);
+  scale:1.5;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+    border-color: #ffb2b2;
+}
+
 #summerMarker .timeMarkerShape {
   background: rgba(255,255,255,1);
 }
