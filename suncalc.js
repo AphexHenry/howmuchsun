@@ -33,23 +33,13 @@ let setSunSize = () => {
   if(window.outerWidth > window.outerHeight) {
       lSize = document.body.clientWidth * 0.5;
       lLeft = document.body.clientWidth * 0.05;
-      $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lLeft + "px", "top":(0.5 * ($("#background").height() - lSize))   + "px"});
-      const top = $("#wheel").last().offset().top ;
-      $("#mainContainer").css({"width":(document.body.clientWidth - lSize - lLeft - 30) + "px", "height":lSize + "px", "top":top + "px"}); 
-      $("#observedTimeMarker").css({"top":(top + lSize * 0.5) + "px", "left": $("#wheel").last().offset().left + lSize * 1.03 + "px", "width":$("main").css("margin-left")});
-      angleToRead = 0;
+    
   }
   else { // phone
       lSize = window.outerWidth * 1;
       lLeft = (window.outerWidth - lSize) * 0.5;
       let lTop = - lSize * 0.5;
-      $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left": lLeft + "px", "top":lTop + "px"});
-      const topMain = 0.55 * lSize;
-      const widthMain = (document.body.clientWidth - lSize - lLeft);
-      $("#mainContainer").css({"height":lSize + "px", "top":topMain + "px", "left":(window.outerWidth - widthMain) * 0}); 
-      const bottomMain = $("main").last().offset().top + $("main").outerHeight(false);
-      $("#observedTimeMarker").css({"width":widthMarker + "px", "top":(bottomMain) + "px", "left": 0.5 * (window.outerWidth - widthMarker) + "px", "height":($('#wheel').last().offset().top - bottomMain) + "px"});
-      angleToRead = Math.PI * 0.5;
+    $("#dancingSun").css("top", "50%");
   }
 }
 
@@ -232,7 +222,7 @@ let normaliseAngle = (aAngle) => {
 
 getCurrentLocation();
 calculateResults();
-// setSunSize();
+setSunSize();
 
   sAnimator = new animator();
   sAnimator.addLoop("danceloop", 6);
