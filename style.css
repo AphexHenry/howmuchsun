@@ -34,7 +34,7 @@ h3 {
   line-height: 1.7em;
   font-weight: 300;
   right: 0.8px;
-  color: #aa0000;
+  color: #000;
   ;
 }
 
@@ -370,7 +370,7 @@ main {
 }
 
 #levelSunContainer {
-  margin-top: 20%;
+  margin-top: 10%;
 }
 
 h4 {
