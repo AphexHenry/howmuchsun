@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
     <script src="suncalc.js"></script>
+    <script src="animator.js"></script>
 </head>
+
 <body>
 
 
@@ -17,45 +20,58 @@
     </header>
 
     <div id="mainContainer">
-    <main>
-        <!-- <h3 id="sunlightText">SUNLIGHT</h3> -->
-        <h2><div class="timeText" id="topTimeText"></div></h2>
-        <h3><div id="subTimeText">(solstice)</div><h3>
-            <h3><div class="timeText"> has </div>
-            <div id="howmuch" class="timeText fat"></div>
-            <div class="timeText"> of sunlight </div>
-    </h3>
-        <h3>
-            <div id="howmuchmore" class="timeText"></div>
-            <div id="moreorless" class="timeText"></div>
-            <div class="timeText" id="thanyesterday">than yesterday</div>
-            <br>
-            <br>
-        </h3>
+        <main>
+            <!-- <h3 id="sunlightText">SUNLIGHT</h3> -->
+            <h2>
+                <div class="timeText" id="topTimeText"></div>
+            </h2>
+            <h3>
+                <div id="subTimeText">(solstice)</div>
+                <h3>
+                    <h3>
+                        <div class="timeText"> has </div>
+                        <div id="howmuch" class="timeText fat"></div>
+                        <div class="timeText"> of sunlight </div>
+                    </h3>
+                    <h3>
+                        <div id="howmuchmore" class="timeText"></div>
+                        <div id="moreorless" class="timeText"></div>
+                        <div class="timeText" id="thanyesterday">than yesterday</div>
+                        <br>
+                        <br>
+                    </h3>
 
-        <h3><img class="icon" src="resources/sunrise.svg"></img><div id="sunrise" class="timeText"></div>
-            <div style="display: inline-block; width: 10%;"></div>
-            <img class="icon" src="resources/sunset.svg"></img><div id="sunset" class="timeText"></div>
-        </h3>
+                    <h3><img class="icon" src="resources/sunrise.svg"></img>
+                        <div id="sunrise" class="timeText"></div>
+                        <div style="display: inline-block; width: 10%;"></div>
+                        <img class="icon" src="resources/sunset.svg"></img>
+                        <div id="sunset" class="timeText"></div>
+                    </h3>
 
-        <div id="levelSunContainer">
-            <!-- <h4 id="titleLevel">daily sunlight</h4> -->
-            <h4 id="durationLevel" style="width:100%; text-align: center; margin-left:0%; color:#c49e3c; display:inline-block; font-size: 0.8em;"><br>than winter</h4>
-            <div id="levelSun">   
-                <div style="position:absolute; transform: translateX(-50%); font-size: 0.8em;">
-                    <h4 id="minsun">min sun</h4>
-                    <h4 style="margin-left: 0%; line-height: 0em;">(winter solstice)</h4>
-                </div>
-                <div style="position:absolute; right:0; font-size: 0.8em; transform: translateX(50%);">
-                    <h4 id="maxsun">max sun</h4>
-                    <h4 style="line-height: 0em;">(summer solstice)</h4>
-                </div>
-            </div>
-        </div>
+                    <div id="levelSunContainer">
+                        <!-- <h4 id="titleLevel">daily sunlight</h4> -->
+                        <h4 id="durationLevel"
+                            style="width:100%; text-align: center; margin-left:0%; color:#c49e3c; display:inline-block; font-size: 0.8em;">
+                            <br>than winter
+                        </h4>
+                        <div id="levelSun">
+                            <div style="position:absolute; transform: translateX(-50%); font-size: 0.8em;">
+                                <h4 id="minsun">min sun</h4>
+                                <h4 style="margin-left: 0%; line-height: 0em;">(winter solstice)</h4>
+                            </div>
+                            <div style="position:absolute; right:0; font-size: 0.8em; transform: translateX(50%);">
+                                <h4 id="maxsun">max sun</h4>
+                                <h4 style="line-height: 0em;">(summer solstice)</h4>
+                            </div>
+                        </div>
+                    </div>
 
-    </main>
+        </main>
     </div>
 
+    <canvas id="dancingSun">
+
+    </canvas>
 
     <div id="shapes">
         <div id="observedTimeMarker"></div>
@@ -83,17 +99,23 @@
             </div>
             <div id="sunShapes">
                 <div class="sunShape" id="centerWhite"></div>
-                <div class="sunShape" id="svgSunWhite"><div class="sunShape" id="svgSunYellow"/></div></div>
-                <div class="sunShape" id="svgSunWhiteLine"/></div>
+                <div class="sunShape" id="svgSunWhite">
+                    <div class="sunShape" id="svgSunYellow" />
+                </div>
             </div>
+            <div class="sunShape" id="svgSunWhiteLine" />
         </div>
+    </div>
+    </div>
     </div>
 
     <div id="inputs" style="visibility: hidden;">
         <h3>location access denied</h3>
-        <h3 style="font-weight: 100;">you can write your location manually, or <a href="https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting" target="_blank" style="color:white;">grant your browser access to it</a>.</h3>
-      <h3 style="font-weight: 100;">Lat: <input type="text" id="lat" value="51.5"/></h3>
-      <h3 style="font-weight: 100;">Lng: <input type="text" id="lng" value="-0.1"/></h3>
+        <h3 style="font-weight: 100;">you can write your location manually, or <a
+                href="https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting"
+                target="_blank" style="color:white;">grant your browser access to it</a>.</h3>
+        <h3 style="font-weight: 100;">Lat: <input type="text" id="lat" value="51.5" /></h3>
+        <h3 style="font-weight: 100;">Lng: <input type="text" id="lng" value="-0.1" /></h3>
     </div>
 
     <footer>
@@ -101,4 +123,5 @@
     </footer>
 
 </body>
+
 </html>
