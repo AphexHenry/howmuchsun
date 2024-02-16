@@ -204,7 +204,12 @@ let getCurrentLocation = () => {
       latInput.value = data.coords.latitude;
       lngInput.value = data.coords.longitude;
       calculateResults();
-      console.log(data);
+       console.log(data);
+       sAnimator.loadAnimation("raisehands").then("handraisedloop");
+       setTimeout(function () {
+        $("#mainContainer").css("transform", "scaleY(1)");
+        }, 750);
+       
     },
     (error) => {
       console.log(error);
@@ -231,7 +236,7 @@ calculateResults();
 
   sAnimator = new animator();
   sAnimator.addLoop("danceloop", 6);
-  sAnimator.addLoop("handraisedloop", 2);
+  sAnimator.addLoop("handraisedloop", 6);
   sAnimator.addLoop("raisehands", 4);
   sAnimator.loadAnimation("danceloop");
   sAnimator.play();
