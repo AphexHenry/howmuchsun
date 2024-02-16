@@ -59,7 +59,6 @@ footer {
 }
 
 #topTimeText {
-  color: #c49e3c;
   margin-top: -40%;
   margin-bottom: 0%;
   font-family: monospace;
@@ -159,16 +158,16 @@ font-size: 1.3em;
 #observedTimeMarker {
   position:absolute;
   height: 3px;
-  background-color: #c49e3c;
+  background-color: white;
   width: 5%;
   position:absolute;
   top:10px;
   left:10px;
   border-radius: 50%;
   z-index:-1;
+/*  box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
   box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
-  box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
-  box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);
+  box-shadow: 5em 5em 8em 0px rgba(0,0,0,0.5);*/
 }
 
 #summerMarker {
@@ -240,8 +239,8 @@ font-size: 1.3em;
 
 .timeMarker {
   position:absolute;
-  height: 2%;
-  width: 2%;
+  height: 4%;
+  width: 4%;
   
   
 /*  display: inline-block;*/
@@ -249,57 +248,74 @@ font-size: 1.3em;
   left:50%;
   scale: 1;
   margin: auto;
-  transition-duration: .3s;
-  transition-property: scale;
-  transition-timing-function: ease-in-out;
+
 }
 
-.timeMarker:hover {
+.timeMarkerShape:hover {
   scale: 1.3;
 }
 
 .timeMarkerShape {
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(255,255,255,1) 51%, rgba(255,255,255,1) 100%);
+/*  background: srvc("resources/fall.svg");*/
+/*  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(255,255,255,1) 51%, rgba(255,255,255,1) 100%);*/
   border-radius: 50%;
-  border: 2px dotted;
   margin-left: -75%;
   margin-top: -50%;
-  -webkit-box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.3);
+/*  -webkit-box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.3);
   -moz-box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.3);
-  box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.3);
+  box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.3);*/
+/*  border: 2px solid;*/
   border: 2px solid;
-  border-color: #fff;
+  border-color: #ffffff00;
+  -webkit-filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
+  filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
+    transition-duration: .3s;
+  transition-property: scale;
+  transition-timing-function: ease-in-out;
+}
+
+#observedMarker {
+  z-index: -1;
 }
 
 #observedMarker .timeMarkerShape {
-  background: rgba(255,255,255,1);
-  scale:1.5;
+  background: rgba(255,255,255,0);
+  scale:1.2;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-    border-color: #ffb2b2;
+  border-color: #fff;
 }
 
 #summerMarker .timeMarkerShape {
-  background: rgba(255,255,255,1);
+/*  background: rgba(255,255,255,1);*/
+  background: url(resources/summer.svg) no-repeat fixed;
+  background-size: 100% 100%;
 }
 
 #winterMarker .timeMarkerShape {
-  background: rgba(0,0,0,0);
+/*  background: rgba(0,0,0,0);*/
+  background: url(resources/winter.svg) no-repeat fixed;
+  background-size: 100% 100%;
 }
 
 #springMarker .timeMarkerShape {
-  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(255,255,255,1) 51%, rgba(255,255,255,1) 100%);
+/*  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(255,255,255,1) 51%, rgba(255,255,255,1) 100%);*/
+  background: url(resources/spring.svg) no-repeat fixed;
+  background-size: 100% 100%;
 }
 
 #autumnMarker .timeMarkerShape {
-  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(0,0,0,0) 51%, rgba(0,0,0,0) 100%);
+/*  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(0,0,0,0) 51%, rgba(0,0,0,0) 100%);*/
+  background: url(resources/fall.svg) no-repeat fixed;
+  background-size: 100% 100%;
 }
 
 #nowMarker .timeMarkerShape {
   background: linear-gradient(145deg, #FDC46D 0%, #F1AD28 100%);
+  border-color: #fff;
 }
 
 #background {
@@ -358,6 +374,7 @@ h4 {
 
 
 #levelSun {
+  position: relative;
   width: 100%;
   height: 0.7em;
   background: linear-gradient(80deg, white 0%, white 59%, #FDC46D 60%, #FDC46D 100%);

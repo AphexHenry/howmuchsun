@@ -32,11 +32,11 @@ let setSunSize = () => {
 
   if(window.outerWidth > window.outerHeight) {
       lSize = document.body.clientWidth * 0.5;
-      lLeft = document.body.clientWidth * 0.1;
+      lLeft = document.body.clientWidth * 0.05;
       $('#wheel').css({"width": lSize + "px", "height": lSize + "px", "left":lLeft + "px", "top":(0.5 * ($("#background").height() - lSize))   + "px"});
       const top = $("#wheel").last().offset().top ;
       $("#mainContainer").css({"width":(document.body.clientWidth - lSize - lLeft - 30) + "px", "height":lSize + "px", "top":top + "px"}); 
-      $("#observedTimeMarker").css({"top":(top + lSize * 0.5) + "px", "left": $("#wheel").last().offset().left + lSize + "px", "width":$("main").css("margin-left")});
+      $("#observedTimeMarker").css({"top":(top + lSize * 0.5) + "px", "left": $("#wheel").last().offset().left + lSize * 1.03 + "px", "width":$("main").css("margin-left")});
       angleToRead = 0;
   }
   else { // phone
