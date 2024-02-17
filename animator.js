@@ -60,7 +60,6 @@ class animation {
       clearInterval(this.intervalId);
       this.intervalId = -1;
     }
-    
   }
   
   nextFrame() {
