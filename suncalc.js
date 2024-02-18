@@ -36,10 +36,13 @@ let setSunSize = () => {
     
   }
   else { // phone
-      lSize = window.outerWidth * 1;
+      lSize = window.outerWidth * 0.8;
       lLeft = (window.outerWidth - lSize) * 0.5;
-      let lTop = - lSize * 0.5;
-    $("#dancingSun").css("top", "50%");
+    // let lTop = - lSize * 0.5;
+    $("#mainContainer").css({ "height": "40%" });
+    $("h3").css({ "font-size": "1em" });
+    $("#dancingSun").css({ "width": lSize + "px", "left": "10%", "bottom": "5%" });
+    $("main").css({ "width": "80%" });
   }
 }
 
@@ -49,8 +52,8 @@ let calculateResults =  () => {
 
   let resultTopText = document.getElementById('topTimeText');
   let resultSubText = document.getElementById('subTimeText');
-  let resultHowMuchMore = document.getElementById('howmuchmore');
   let resultHowMuch = document.getElementById('howmuch');
+  let resultHowMuchMore = document.getElementById('howmuchmore');
   let resultMoreOrLess = document.getElementById('moreorless');
   let resultMinSun = document.getElementById('minsun');
   let resultMaxSun = document.getElementById('maxsun');
@@ -84,17 +87,17 @@ let calculateResults =  () => {
   resultTopText.textContent = getTextForDate(observedDate);
   resultHowMuch.textContent = getTextDurationFromSeconds(dayLightDurationS);
   $("#durationLevel").html(getTextDurationFromSeconds(dayLightDurationS));
-  const minDiffText = (diffMin > 0) ? diffMin + "min" : ""
+  const minDiffText = (diffMin > 0) ? diffMin + " minutes and " : ""
   resultMoreOrLess.textContent = diff < 0 ? " less" : " more";
   if(diff > 0) {
     $(resultMoreOrLess).addClass("isMore");
   }
-  resultHowMuchMore.textContent = minDiffText  + diffSec + "s";
+  resultHowMuchMore.textContent = minDiffText  + diffSec + " seconds";
 
   resultSunrise.textContent = getHourTextDromDate(dayLightToday.sunrise);
   resultSunset.textContent = getHourTextDromDate(dayLightToday.sunset);
 
-  resultthanyesterday.textContent = (observedDate.getDate() == todayDate.getDate()) ? "each day" : "each day"
+  resultthanyesterday.textContent = (observedDate.getDate() == todayDate.getDate()) ? "than yesterday.": "each day."
 
   resultMinSun.textContent = getTextDurationFromSeconds(dayLightDecemberSolstice.dayLightS);
   resultMaxSun.textContent = getTextDurationFromSeconds(dayLightJuneSolstice.dayLightS);
@@ -170,12 +173,12 @@ let getTextDurationFromSeconds = (aSeconds) => {
     minimumIntegerDigits: 2,
     useGrouping: false
   });
-  const lMin = lDate.getMinutes().toLocaleString('en-US', {
-    minimumIntegerDigits: 2,
-    useGrouping: false
-  });
+  const lMin = lDate.getMinutes()//.toLocaleString('en-US', {
+    // minimumIntegerDigits: 2,
+    // useGrouping: false
+  // });
 
-  return lH + "h" + lMin + "min";
+  return lH + " hours and " + lMin + " minutes";
 }
 
 let getHourTextDromDate = (aDate) => {
@@ -195,6 +198,7 @@ let getCurrentLocation = () => {
       lngInput.value = data.coords.longitude;
       calculateResults();
        console.log(data);
+       $("#speechSun").css({ "visibility": "hidden" });
        sAnimator.loadAnimation("raisehands").then("handraisedloop");
        setTimeout(function () {
         $("#mainContainer").css("transform", "scaleY(1)");
@@ -203,9 +207,11 @@ let getCurrentLocation = () => {
     },
     (error) => {
       console.log(error);
+      $("#speechSun").html("your location is unaccessible.")
+      $("#inputs").css({"visibility":"visible"});
       switch(error.code) {
         case GeolocationPositionError.PERMISSION_DENIED: {
-          $("#inputs").css({"visibility":"visible"});
+
           break;
         }
       }

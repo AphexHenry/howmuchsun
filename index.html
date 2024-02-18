@@ -14,38 +14,39 @@
 
 <body>
 
-
     <header>
         <!-- <h1>how much sun?</h1> -->
     </header>
-
+    <div id="mainBackground"></div>
     <div id="mainContainer">
         <main>
             <h3>
-                <div class="timeText" id="topTimeText"></div>
+                <!-- <div class="timeText" id="topTimeText"></div> -->
                 <div id="subTimeText">(solstice)</div>
                 <h3>
                     <h3>
+                        <div class="timeText" id="topTimeText"></div>
                         <div class="timeText"> has </div>
                         <div id="howmuch" class="timeText fat"></div>
-                        <div class="timeText"> of sunlight </div>
+                        <div class="timeText"> of sunlight.</div>
                     </h3>
                     <h3>
-                        <div id="howmuchmore" class="timeText"></div>
-                        <div id="moreorless" class="timeText"></div>
+                        <div class="timeText">that's</div>
+                        <div id="howmuchmore" class="timeText fat"></div>
+                        <div id="moreorless" class="timeText fat"></div>
                         <div class="timeText" id="thanyesterday">than yesterday</div>
                         <br>
                         <br>
                     </h3>
 
-                    <h3><img class="icon" src="resources/sunrise.svg"></img>
+                    <h3 style="display: none;"><img class="icon" src="resources/sunrise.svg"></img>
                         <div id="sunrise" class="timeText"></div>
                         <div style="display: inline-block; width: 10%;"></div>
                         <img class="icon" src="resources/sunset.svg"></img>
                         <div id="sunset" class="timeText"></div>
                     </h3>
 
-                    <div id="levelSunContainer">
+                    <div id="levelSunContainer" style="display: none;">
                         <!-- <h4 id="titleLevel">daily sunlight</h4> -->
                         <h4 id="durationLevel"
                             style="width:100%; text-align: center; margin-left:0%; color:#c49e3c; display:inline-block; font-size: 0.8em;">
@@ -69,6 +70,8 @@
     <canvas id="dancingSun" width="720" height="720">
 
     </canvas>
+    <h3 id="speechSun" style="font-size: 1.2em;">share your location... <div style="margin-top: 10%;">or don't</div>
+    </h3>
     <!-- 
     <div id="shapes">
         <div id="observedTimeMarker"></div>
