@@ -212,22 +212,31 @@ let getHourTextDromDate = (aDate) => {
     calculateResults();
     
     $("#speechSun").css({ "visibility": "hidden" });
+    $("#speechSunText").css({ "visibility": "hidden" });
     sAnimator.loadAnimation("raisehands").then("handraisedloop");
     setTimeout(function () {
     $("#mainContainer").css("transform", "scaleY(1)");
     }, 750);
   }
     
-let getCurrentLocation = () => {
+  let getCurrentLocation = () => {
+  
+    const lTimer = setTimeout(function () {
+      $("#speechSunText").css({ "visibility": "visible" });
+    }, 3000)
+    
    navigator.geolocation.getCurrentPosition(
-    (data) => {
+     (data) => {
+       clearTimeout(lTimer);
       latInput.value = data.coords.latitude;
        lngInput.value = data.coords.longitude;
        console.log(data);
        locationReceived();
        
     },
-    (error) => {
+     (error) => {
+       clearTimeout(lTimer);
+       $("#speechSunText").css({ "visibility": "visible" });
       console.log(error);
       $("#speechSunText").html("no location, no sun...");
       setTimeout(function () {
