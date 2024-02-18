@@ -67,9 +67,24 @@ class animation {
     const canvas = document.getElementById("dancingSun");
     const ctx = canvas.getContext("2d");
     ctx.imageSmoothingEnabled = true;
-    const image = this.images[this.currentFrame];
-    ctx.clearRect(0, 0, canvas.width, canvas.width);
-    ctx.drawImage(image, 0, 0, canvas.width, canvas.height );
+    let foundImage = false;
+    const lInitFrame = this.currentFrame;
+    while (!foundImage) {
+      const image = this.images[this.currentFrame];
+      if (image.naturalWidth != 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.width);
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        foundImage = true;
+      }
+      else {
+        this.currentFrame++;
+        this.currentFrame = this.currentFrame % this.frameCount;
+        if (this.currentFrame == lInitFrame) {
+          break;
+        }
+      }
+
+    }
 
     this.currentFrame++;
     if (this.currentFrame >= this.frameCount) {
