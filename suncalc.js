@@ -52,9 +52,10 @@ let setSunSize = () => {
     // let lTop = - lSize * 0.5;
     $("#mainContainer").css({ "height": "40%" });
     $("h3").css({ "font-size": "1em" });
-    $("#dancingSun").css({ "width": lSize + "px", "left": "10%", "bottom": "5%" });
+    $("#dancingSun").css({ "width": lSize + "px", "left": lLeft + "px", "bottom": "5%" });
     $("main").css({ "width": "80%" });
-    $("#speechSun").css({ "top": "20%"})
+    $("#speechSun").css({ "top": "20%", "left":"0", "width":"100%" })
+    $("#inputs h3").css({"font-size":"1em"})
   }
 }
 
@@ -223,7 +224,7 @@ let getHourTextDromDate = (aDate) => {
   
     const lTimer = setTimeout(function () {
       $("#speechSunText").css({ "visibility": "visible" });
-    }, 3000)
+    }, 4000)
     
    navigator.geolocation.getCurrentPosition(
      (data) => {
@@ -242,7 +243,7 @@ let getHourTextDromDate = (aDate) => {
       setTimeout(function () {
         $("#speechSunText").css({ "visibility": "hidden" });
         $("#inputs").css({ "visibility": "visible" });
-      }, 4000);
+      }, 3000);
       
       switch(error.code) {
         case GeolocationPositionError.PERMISSION_DENIED: {
@@ -266,9 +267,9 @@ calculateResults();
 setSunSize();
 
   sAnimator = new animator();
-  sAnimator.addLoop("danceloop", 6);
+  sAnimator.addLoop("danceloop", 6, ".jpg");
   sAnimator.addLoop("handraisedloop", 6);
-  sAnimator.addLoop("raisehands", 7);
+  sAnimator.addLoop("raisehands", 7, ".jpg");
   sAnimator.loadAnimation("danceloop");
   sAnimator.play();
 };

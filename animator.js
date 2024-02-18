@@ -4,8 +4,9 @@ class animator {
     this.animations = [];
   }
 
-  addLoop(aName, aImgCount) {
-    this.animations[aName] = new animation("resources/animations/" + aName, aImgCount);
+  addLoop(aName, aImgCount, aExt) {
+    aExt = aExt ? aExt : ".png";
+    this.animations[aName] = new animation("resources/animations/" + aName, aImgCount, aExt);
   }
 
   // play the animation.
@@ -31,7 +32,7 @@ class animator {
 }
 
 class animation {
-  constructor(aPath, aImgCount) {
+  constructor(aPath, aImgCount, aExt) {
     this.path = aPath;
     this.frameCount = aImgCount;
     this.currentFrame = 0;
@@ -41,7 +42,7 @@ class animation {
     this.images = [];
     for (let i = 0; i < aImgCount; i++) {
       let image = new Image(720, 720);
-      image.src = aPath + "/" + "frame_0" + i + ".png";
+      image.src = aPath + "/" + "frame_0" + i + aExt;
       this.images.push(image);
     }
   }
