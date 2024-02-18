@@ -69,14 +69,6 @@ footer {
   background-color: #fff;
 }
 
-#topTimeText {
-  /* margin-top: -40%; */
-  /* margin-bottom: 0%; */
-  /* font-family: monospace; */
-  /* font-size: 1em; */
-  /* font-weight: bold; */
-}
-
 #subTimeText {
   visibility: hidden;
   margin-top: -5%;
@@ -137,13 +129,18 @@ main {
   /* font-size: 1.3em; */
 }
 
+#inputs h3 {
+  font-size: 1em;
+}
+
 #inputs {
-  position: absolute;
+  /* position: absolute; */
   bottom: 3em;
   margin: auto;
   width: 100%;
   text-align: center;
   line-height: 1.7em;
+  font-size: 1em;
 }
 
 #shapes {
@@ -432,6 +429,7 @@ h4 {
 #speechSun {
   position: absolute;
   bottom: 30%;
+  width: 30%;
   left: 70%;
   text-align: left;
 }

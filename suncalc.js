@@ -5,8 +5,20 @@ window.onload = () => {
 let latInput = document.getElementById('lat');
 let lngInput = document.getElementById('lng');
 
-latInput.oninput = () => calculateResults();
-lngInput.oninput = () => calculateResults();
+latInput.oninput = () => updateManualButton();
+  lngInput.oninput = () => updateManualButton();
+  
+  function updateManualButton() {
+    if (latInput.value.length == 0 || lngInput.value.length == 0) {
+      $("buttonmanual").prop('disabled', true); 
+    }
+    else {
+      $("buttonmanual").prop('disabled', true);
+      const ldis = $('#buttonmanual').prop('disabled');
+      ldis;
+    }
+  }
+  
 
 let timer;
 let observedDate = new Date();
@@ -33,16 +45,16 @@ let setSunSize = () => {
   if(window.outerWidth > window.outerHeight) {
       lSize = document.body.clientWidth * 0.5;
       lLeft = document.body.clientWidth * 0.05;
-    
   }
   else { // phone
-      lSize = window.outerWidth * 0.8;
-      lLeft = (window.outerWidth - lSize) * 0.5;
+    lSize = window.outerWidth * 0.8;
+    lLeft = (window.outerWidth - lSize) * 0.5;
     // let lTop = - lSize * 0.5;
     $("#mainContainer").css({ "height": "40%" });
     $("h3").css({ "font-size": "1em" });
     $("#dancingSun").css({ "width": lSize + "px", "left": "10%", "bottom": "5%" });
     $("main").css({ "width": "80%" });
+    $("#speechSun").css({ "top": "20%"})
   }
 }
 
@@ -101,6 +113,11 @@ let calculateResults =  () => {
 
   resultMinSun.textContent = getTextDurationFromSeconds(dayLightDecemberSolstice.dayLightS);
   resultMaxSun.textContent = getTextDurationFromSeconds(dayLightJuneSolstice.dayLightS);
+
+  $("#buttonmanual").on("click", function () {
+    locationReceived();
+    $("#inputs").css("visibility","hidden")
+  })
 
 
   const lTextSub = getSubTime(observedDate);
@@ -190,25 +207,34 @@ let getHourTextDromDate = (aDate) => {
     useGrouping: false
   });
 }
+  
+  let locationReceived = () => {
+    calculateResults();
+    
+    $("#speechSun").css({ "visibility": "hidden" });
+    sAnimator.loadAnimation("raisehands").then("handraisedloop");
+    setTimeout(function () {
+    $("#mainContainer").css("transform", "scaleY(1)");
+    }, 750);
+  }
     
 let getCurrentLocation = () => {
    navigator.geolocation.getCurrentPosition(
     (data) => {
       latInput.value = data.coords.latitude;
-      lngInput.value = data.coords.longitude;
-      calculateResults();
+       lngInput.value = data.coords.longitude;
        console.log(data);
-       $("#speechSun").css({ "visibility": "hidden" });
-       sAnimator.loadAnimation("raisehands").then("handraisedloop");
-       setTimeout(function () {
-        $("#mainContainer").css("transform", "scaleY(1)");
-        }, 750);
+       locationReceived();
        
     },
     (error) => {
       console.log(error);
-      $("#speechSun").html("your location is unaccessible.")
-      $("#inputs").css({"visibility":"visible"});
+      $("#speechSunText").html("no location, no sun...");
+      setTimeout(function () {
+        $("#speechSunText").css({ "visibility": "hidden" });
+        $("#inputs").css({ "visibility": "visible" });
+      }, 4000);
+      
       switch(error.code) {
         case GeolocationPositionError.PERMISSION_DENIED: {
 

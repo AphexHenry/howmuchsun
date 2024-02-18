@@ -67,11 +67,24 @@
         </main>
     </div>
 
-    <canvas id="dancingSun" width="720" height="720">
-
-    </canvas>
-    <h3 id="speechSun" style="font-size: 1.2em;">share your location... <div style="margin-top: 10%;">or don't</div>
-    </h3>
+    <canvas id="dancingSun" width="720" height="720"></canvas>
+    <div id="speechSun">
+        <h3 id="speechSunText">how much sun?<br><br>share your
+            location... <br><br>or don't
+        </h3>
+        <div id="inputs" style="visibility: hidden;">
+            <h3>... or write it like a hacker</h3>
+            <!-- <h3 style="font-weight: 100;">fine. you can write one manually. -->
+            <!-- <a
+                    href="https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting"
+                    target="_blank" style="">grant your browser access to it</a>. -->
+            <!-- </h3> -->
+            <br>
+            <h3 style="font-weight: 100;">Lat: <input type="text" id="lat" value="0" /></h3>
+            <h3 style="font-weight: 100;">Lng: <input type="text" id="lng" value="0" /></h3>
+            <button id="buttonmanual">go</button>
+        </div>
+    </div>
     <!-- 
     <div id="shapes">
         <div id="observedTimeMarker"></div>
@@ -109,14 +122,7 @@
     </div>
     </div>
 
-    <div id="inputs" style="visibility: hidden;">
-        <h3>location access denied</h3>
-        <h3 style="font-weight: 100;">you can write your location manually, or <a
-                href="https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting"
-                target="_blank" style="color:white;">grant your browser access to it</a>.</h3>
-        <h3 style="font-weight: 100;">Lat: <input type="text" id="lat" value="51.5" /></h3>
-        <h3 style="font-weight: 100;">Lng: <input type="text" id="lng" value="-0.1" /></h3>
-    </div>
+
 
     <footer>
         <!-- <p id="copyright">&copy; Copyright 2024 Baptiste Bohelay</p> -->
