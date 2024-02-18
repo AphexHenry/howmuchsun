@@ -80,7 +80,7 @@ class animation {
         this.currentFrame++;
         this.currentFrame = this.currentFrame % this.frameCount;
         if (this.currentFrame == lInitFrame) {
-          break;
+          return;
         }
       }
 
