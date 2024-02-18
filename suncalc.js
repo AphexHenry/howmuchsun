@@ -224,7 +224,7 @@ let getHourTextDromDate = (aDate) => {
   
     const lTimer = setTimeout(function () {
       $("#speechSunText").css({ "visibility": "visible" });
-    }, 4000)
+    }, 5000)
     
    navigator.geolocation.getCurrentPosition(
      (data) => {
@@ -268,7 +268,7 @@ setSunSize();
 
   sAnimator = new animator();
   sAnimator.addLoop("danceloop", 6, ".jpg");
-  sAnimator.addLoop("handraisedloop", 6);
+  sAnimator.addLoop("handraisedloop", 6, ".jpg");
   sAnimator.addLoop("raisehands", 7, ".jpg");
   sAnimator.loadAnimation("danceloop");
   sAnimator.play();
