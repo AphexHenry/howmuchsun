@@ -44,7 +44,7 @@ let setSunSize = () => {
 
   if(window.outerWidth > window.outerHeight) {
       lSize = document.body.clientWidth * 0.5;
-      lLeft = document.body.clientWidth * 0.05;
+    lLeft = document.body.clientWidth * 0.05;
   }
   else { // phone
     lSize = window.outerWidth * 0.8;
@@ -54,7 +54,7 @@ let setSunSize = () => {
     $("h3").css({ "font-size": "1em" });
     $("#dancingSun").css({ "width": lSize + "px", "left": lLeft + "px", "bottom": "5%" });
     $("main").css({ "width": "80%" });
-    $("#speechSun").css({ "top": "20%", "left":"0", "width":"100%" })
+    
     $("#inputs h3").css({"font-size":"1em"})
   }
 }
