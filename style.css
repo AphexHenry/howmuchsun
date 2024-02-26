@@ -86,7 +86,8 @@ footer {
 }
 
 #copyright {
-  color: white;
+  margin-left: 20px;
+  color: black;
 }
 
 #mainContainer {
