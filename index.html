@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How Much Sun</title>
+    <meta name="description"
+        content="concise display of how much sun you will get today at your current location, and how much more minutes sun there is compared to yesterday.">
+
+    <title>How Much Sun Today - how much sunlight more than Yesterday</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
@@ -17,60 +20,63 @@
     <header>
         <!-- <h1>how much sun?</h1> -->
     </header>
-    <!-- <div id="mainBackground"></div> -->
+
+    <div id="waitingForLocationText">
+        <h1>how much sun today?</h3>
+            <h3 style="color:#000;">please allow location access</h3>
+    </div>
+
     <div id="mainContainer">
         <main>
             <h3>
                 <!-- <div class="timeText" id="topTimeText"></div> -->
                 <div id="subTimeText">(solstice)</div>
+                <!-- <h3> -->
                 <h3>
-                    <h3>
-                        <div class="timeText" id="topTimeText"></div>
-                        <div class="timeText"> has </div>
-                        <div id="howmuch" class="timeText fat"></div>
-                        <div class="timeText"> of sunlight.</div>
-                    </h3>
-                    <h3>
-                        <div class="timeText">that's</div>
-                        <div id="howmuchmore" class="timeText fat"></div>
-                        <div id="moreorless" class="timeText fat"></div>
-                        <div class="timeText" id="thanyesterday">than yesterday</div>
-                        <br>
-                        <br>
-                    </h3>
+                    <div class="timeText" id="topTimeText">today</div>
+                    <div class="timeText"> has </div>
+                    <div id="howmuch" class="timeText fat"></div>
+                    <div class="timeText"> of sunlight.</div>
+                </h3>
+                <h3>
+                    <div class="timeText">that's</div>
+                    <div id="howmuchmore" class="timeText fat"></div>
+                    <div id="moreorless" class="timeText fat">more</div>
+                    <div class="timeText" id="thanyesterday">than yesterday</div>
+                    <br>
+                    <br>
+                </h3>
 
-                    <h3 style="display: none;"><img class="icon" src="resources/sunrise.svg"></img>
-                        <div id="sunrise" class="timeText"></div>
-                        <div style="display: inline-block; width: 10%;"></div>
-                        <img class="icon" src="resources/sunset.svg"></img>
-                        <div id="sunset" class="timeText"></div>
-                    </h3>
+                <h3 style="display: none;"><img class="icon" src="resources/sunrise.svg"></img>
+                    <div id="sunrise" class="timeText"></div>
+                    <div style="display: inline-block; width: 10%;"></div>
+                    <img class="icon" src="resources/sunset.svg"></img>
+                    <div id="sunset" class="timeText"></div>
+                </h3>
 
-                    <div id="levelSunContainer" style="display: none;">
-                        <!-- <h4 id="titleLevel">daily sunlight</h4> -->
-                        <h4 id="durationLevel"
-                            style="width:100%; text-align: center; margin-left:0%; color:#c49e3c; display:inline-block; font-size: 0.8em;">
-                            <br>than winter
-                        </h4>
-                        <div id="levelSun">
-                            <div style="position:absolute; transform: translateX(-50%); font-size: 0.8em;">
-                                <h4 id="minsun">min sun</h4>
-                                <h4 style="margin-left: 0%; line-height: 0em;">(winter solstice)</h4>
-                            </div>
-                            <div style="position:absolute; right:0; font-size: 0.8em; transform: translateX(50%);">
-                                <h4 id="maxsun">max sun</h4>
-                                <h4 style="line-height: 0em;">(summer solstice)</h4>
-                            </div>
+                <div id="levelSunContainer" style="display: none;">
+                    <!-- <h4 id="titleLevel">daily sunlight</h4> -->
+                    <h4 id="durationLevel"
+                        style="width:100%; text-align: center; margin-left:0%; color:#c49e3c; display:inline-block; font-size: 0.8em;">
+                        <br>than winter
+                    </h4>
+                    <div id="levelSun">
+                        <div style="position:absolute; transform: translateX(-50%); font-size: 0.8em;">
+                            <h4 id="minsun">min sun</h4>
+                            <h4 style="margin-left: 0%; line-height: 0em;">(winter solstice)</h4>
+                        </div>
+                        <div style="position:absolute; right:0; font-size: 0.8em; transform: translateX(50%);">
+                            <h4 id="maxsun">max sun</h4>
+                            <h4 style="line-height: 0em;">(summer solstice)</h4>
                         </div>
                     </div>
+                </div>
 
         </main>
     </div>
 
     <canvas id="dancingSun" width="720" height="720"></canvas>
     <div id="speechSun">
-        <h3 id="speechSunText" style="visibility:hidden"><br>i need to know your location.<br><br>
-        </h3>
         <div id="inputs" style="visibility: hidden;">
             <h3>but you can write it manually</h3>
             <!-- <h3 style="font-weight: 100;">fine. you can write one manually. -->

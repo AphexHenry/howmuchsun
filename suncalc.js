@@ -211,7 +211,7 @@ let getHourTextDromDate = (aDate) => {
   
   let locationReceived = () => {
     calculateResults();
-    
+    $("#waitingForLocationText").hide();
     $("#speechSun").css({ "visibility": "hidden" });
     $("#speechSunText").css({ "visibility": "hidden" });
     sAnimator.loadAnimation("raisehands").then("handraisedloop");
