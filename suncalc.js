@@ -42,19 +42,20 @@ let setSunSize = () => {
   let lLeft;
   const widthMarker = 3;
 
-  if(window.outerWidth > window.outerHeight) {
-      lSize = document.body.clientWidth * 0.5;
+  if (window.outerWidth > window.outerHeight * 0.8) {
+    lSize = document.body.clientWidth * 0.5;
     lLeft = document.body.clientWidth * 0.05;
+    $("#dancingSun").css({ "top": "30%" });
   }
   else { // phone
-    lSize = window.outerWidth * 0.8;
+    lSize = window.outerWidth * 0.7;
     lLeft = (window.outerWidth - lSize) * 0.5;
     // let lTop = - lSize * 0.5;
     $("#mainContainer").css({ "height": "40%" });
     $("h3").css({ "font-size": "1em" });
     $("#dancingSun").css({ "width": lSize + "px", "left": lLeft + "px", "bottom": "5%" });
     $("main").css({ "width": "80%" });
-    
+    $("#dancingSun").css({ "top": "40%" });
     $("#inputs h3").css({"font-size":"1em"})
   }
 }
